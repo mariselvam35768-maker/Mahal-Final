@@ -3,10 +3,10 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 $current_view = $_GET['view'] ?? '';
 ?>
-<nav class="navbar dual-navbar" id="navbar" style="height:auto; flex-direction:column; padding:0; align-items:stretch; background:transparent; box-shadow:none;">
+<nav class="navbar dual-navbar" id="navbar" style="height:auto; flex-direction:column; padding:0; align-items:stretch; background:transparent; box-shadow:none; position:sticky !important; top:-75px; z-index:1000;">
     
-    <!-- TOP ROW: Brand and Mobile Toggle -->
-    <div class="navbar-top" style="display:flex; justify-content:center; align-items:center; background:#ffffff; padding:0.5rem 4%; height:75px; box-shadow:0 4px 15px rgba(233, 30, 99, 0.05); position:relative; z-index:1001;">
+    <!-- TOP ROW: Brand and Mobile Toggle (This will scroll) -->
+    <div class="navbar-top" style="display:flex; justify-content:center; align-items:center; background:#ffffff; padding:0.5rem 4%; height:75px; box-shadow:0 4px 15px rgba(233, 30, 99, 0.05); position:relative; z-index:10;">
         <div style="display:flex; justify-content:space-between; align-items:center; width:100%; max-width:1200px;">
             <!-- Animated Heart Logo -->
             <a href="index.php" class="navbar-brand" style="margin:0; padding:0;">
@@ -68,99 +68,94 @@ $current_view = $_GET['view'] ?? '';
                 <?php endif; ?>
 
                 <!-- Hamburger for mobile -->
-                <div class="navbar-toggler" onclick="document.getElementById('navLinks').classList.toggle('open'); this.classList.toggle('active')">
+                <div class="navbar-toggler" onclick="toggleMobileMenu()">
                     <span></span><span></span><span></span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- NAVIGATION LINKS (Moved outside bottom bar to prevent clipping on mobile) -->
-    <ul class="nav-links has-dual-nav" id="navLinks" style="margin:0; justify-content:space-between; width:100%; max-width:1200px; gap:0;">
-        <!-- Mobile Close Button (Optional since toggler turns to X, but kept for UX) -->
-        <li class="mobile-only" style="display:none; position:absolute; top:20px; right:20px; z-index:20;">
-            <div class="close-nav" onclick="document.getElementById('navLinks').classList.remove('open'); document.querySelector('.navbar-toggler').classList.remove('active')" style="width:40px; height:40px; border-radius:50%; background:var(--primary-light); display:flex; align-items:center; justify-content:center; color:var(--primary); cursor:pointer; box-shadow:var(--shadow-sm);"><i class="fas fa-times"></i></div>
-        </li>
-        <li class="mobile-only" style="display:none; text-align:center; padding:2rem 1rem 1rem;">
-            <div class="brand-logo-circle" style="width:60px; height:60px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--primary-light); margin: 0 auto 0.8rem;">
-                <?php if (!empty($brand_logo)): ?>
-                    <img src="assets/images/<?php echo $brand_logo; ?>" style="width:100%; height:100%; object-fit:cover;">
-                <?php else: ?>
-                    <i class="fa-solid fa-heart" style="color:var(--primary); font-size:2rem;"></i>
+    <!-- BOTTOM ROW: Navigation Links (Sticky via parent offset) -->
+    <div class="navbar-bottom" style="display:flex; justify-content:center; background:#ffffff; border-bottom:1px solid #fdf2f8; min-height:55px; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+        <ul class="nav-links has-dual-nav" id="navLinks" style="margin:0; justify-content:space-between; width:100%; max-width:1200px; gap:0;">
+            <!-- Mobile Close Button -->
+            <li class="mobile-only" style="display:none; position:absolute; top:20px; right:20px; z-index:20;">
+                <div class="close-nav" onclick="toggleMobileMenu()" style="width:40px; height:40px; border-radius:50%; background:var(--primary-light); display:flex; align-items:center; justify-content:center; color:var(--primary); cursor:pointer; box-shadow:var(--shadow-sm);"><i class="fas fa-times"></i></div>
+            </li>
+            <li class="mobile-only" style="display:none; text-align:center; padding:2rem 1rem 1rem;">
+                <div class="brand-logo-circle" style="width:60px; height:60px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--primary-light); margin: 0 auto 0.8rem;">
+                    <?php if (!empty($brand_logo)): ?>
+                        <img src="assets/images/<?php echo $brand_logo; ?>" style="width:100%; height:100%; object-fit:cover;">
+                    <?php else: ?>
+                        <i class="fa-solid fa-heart" style="color:var(--primary); font-size:2rem;"></i>
+                    <?php endif; ?>
+                </div>
+                <div style="font-family:'Cinzel',serif; font-weight:900; font-size:1.1rem; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em;"><?php echo $brand_name; ?></div>
+                <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">Where Comfort Meets Celebration</div>
+                <div style="width:40px; height:3px; background:var(--gradient-primary); margin:1.2rem auto 0.5rem; border-radius:2px; opacity:0.6;"></div>
+            </li>
+            <li>
+                <a href="index.php" class="<?php echo $current_page === 'index.php' ? 'active' : ''; ?>">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </li>
+            <li>
+                <a href="about.php" class="<?php echo $current_page === 'about.php' ? 'active' : ''; ?>">
+                    <i class="fas fa-building"></i> About Us
+                </a>
+            </li>
+            <li>
+                <a href="halls.php" class="<?php echo ($current_page === 'halls.php' && $current_view !== 'room_types') ? 'active' : ''; ?>">
+                    <i class="fas fa-layer-group"></i> Services
+                </a>
+            </li>
+            <li>
+                <a href="halls.php?view=room_types" class="<?php echo ($current_page === 'halls.php' && $current_view === 'room_types') ? 'active' : ''; ?>">
+                    <i class="fas fa-bed"></i> Rooms
+                </a>
+            </li>
+            <li>
+                <a href="gallery.php" class="<?php echo $current_page === 'gallery.php' ? 'active' : ''; ?>">
+                    <i class="fas fa-images"></i> Gallery
+                </a>
+            </li>
+            <li>
+                <a href="explore.php" class="<?php echo $current_page === 'explore.php' ? 'active' : ''; ?>">
+                    <i class="fas fa-compass"></i> Explore
+                </a>
+            </li>
+            <li>
+                <a href="contact.php" class="<?php echo $current_page === 'contact.php' ? 'active' : ''; ?>">
+                    <i class="fas fa-envelope"></i> Contact Us
+                </a>
+            </li>
+
+            <?php if (isLoggedIn()): ?>
+                <li class="nav-mobile-only" style="margin-top:0.5rem; border-top:1px solid #f1f5f9; padding-top:0.5rem;">
+                    <a href="my_bookings.php" class="<?php echo $current_page === 'my_bookings.php' ? 'active' : ''; ?>">
+                        <i class="fas fa-calendar-check" style="color:var(--primary);"></i> My Bookings
+                    </a>
+                </li>
+                <?php if (isAdmin()): ?>
+                <li class="nav-mobile-only">
+                    <a href="admin/dashboard.php">
+                        <i class="fas fa-user-shield" style="color:var(--primary);"></i> Admin Panel
+                    </a>
+                </li>
                 <?php endif; ?>
-            </div>
-            <div style="font-family:'Cinzel',serif; font-weight:900; font-size:1.1rem; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em;"><?php echo $brand_name; ?></div>
-            <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">Where Comfort Meets Celebration</div>
-            <div style="width:40px; height:3px; background:var(--gradient-primary); margin:1.2rem auto 0.5rem; border-radius:2px; opacity:0.6;"></div>
-        </li>
-        <li>
-            <a href="index.php" class="<?php echo $current_page === 'index.php' ? 'active' : ''; ?>">
-                <i class="fas fa-home"></i> Home
-            </a>
-        </li>
-        <li>
-            <a href="about.php" class="<?php echo $current_page === 'about.php' ? 'active' : ''; ?>">
-                <i class="fas fa-building"></i> About Us
-            </a>
-        </li>
-        <li>
-            <a href="halls.php" class="<?php echo ($current_page === 'halls.php' && $current_view !== 'room_types') ? 'active' : ''; ?>">
-                <i class="fas fa-layer-group"></i> Services
-            </a>
-        </li>
-        <li>
-            <a href="halls.php?view=room_types" class="<?php echo ($current_page === 'halls.php' && $current_view === 'room_types') ? 'active' : ''; ?>">
-                <i class="fas fa-bed"></i> Rooms
-            </a>
-        </li>
-        <li>
-            <a href="gallery.php" class="<?php echo $current_page === 'gallery.php' ? 'active' : ''; ?>">
-                <i class="fas fa-images"></i> Gallery
-            </a>
-        </li>
-        <li>
-            <a href="explore.php" class="<?php echo $current_page === 'explore.php' ? 'active' : ''; ?>">
-                <i class="fas fa-compass"></i> Explore
-            </a>
-        </li>
-        <li>
-            <a href="contact.php" class="<?php echo $current_page === 'contact.php' ? 'active' : ''; ?>">
-                <i class="fas fa-envelope"></i> Contact Us
-            </a>
-        </li>
-
-        <?php if (isLoggedIn()): ?>
-            <li class="nav-mobile-only" style="margin-top:0.5rem; border-top:1px solid #f1f5f9; padding-top:0.5rem;">
-                <a href="my_bookings.php" class="<?php echo $current_page === 'my_bookings.php' ? 'active' : ''; ?>">
-                    <i class="fas fa-calendar-check" style="color:var(--primary);"></i> My Bookings
-                </a>
-            </li>
-            <?php if (isAdmin()): ?>
-            <li class="nav-mobile-only">
-                <a href="admin/dashboard.php">
-                    <i class="fas fa-user-shield" style="color:var(--primary);"></i> Admin Panel
-                </a>
-            </li>
+                <li class="nav-mobile-only">
+                    <a href="logout.php" style="color:var(--danger) !important;">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            <?php else: ?>
+                <li class="nav-mobile-only nav-btn-wrap" style="padding: 1rem 1rem !important;">
+                    <a href="login.php" class="btn btn-primary" style="width:100%; justify-content:center; border-radius:12px;">
+                        <i class="fas fa-sign-in-alt"></i> Login / Register
+                    </a>
+                </li>
             <?php endif; ?>
-            <li class="nav-mobile-only">
-                <a href="logout.php" style="color:var(--danger) !important;">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
-            </li>
-        <?php else: ?>
-            <li class="nav-mobile-only nav-btn-wrap" style="padding: 1rem 1rem !important;">
-                <a href="login.php" class="btn btn-primary" style="width:100%; justify-content:center; border-radius:12px;">
-                    <i class="fas fa-sign-in-alt"></i> Login / Register
-                </a>
-            </li>
-        <?php endif; ?>
-    </ul>
-
-    <!-- BOTTOM ROW: Container for desktop spacing -->
-    <div class="navbar-bottom" style="display:flex; justify-content:center; background:rgba(255, 255, 255, 0.95); backdrop-filter:blur(10px); border-bottom:1px solid #fdf2f8; z-index:1000; position:relative; min-height:55px;">
-        <div style="width:100%; max-width:1200px; display:flex;">
-            <!-- Dummy spacer or category links could go here if needed to stay in place -->
-        </div>
+        </ul>
     </div>
 </nav>
 
@@ -461,28 +456,58 @@ $current_view = $_GET['view'] ?? '';
 }
 
 body {
-    padding-top: 140px !important; /* Offset for the new dual-row navbar */
+    padding-top: 0;
 }
 
 @media (max-width: 1150px) {
     body {
-        padding-top: 75px !important; /* On mobile, only the top bar is fixed and bottom nav hides in menu */
+        padding-top: 0 !important; 
     }
     .navbar-bottom {
-        display: none !important; /* Hide the bottom row entirely on mobile */
+        display: block !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        border: none !important;
     }
     .navbar.dual-navbar {
         height: 75px !important;
+        position: sticky !important; /* Use sticky top:0 on mobile for natural flow */
+        top: 0 !important;
+        left: 0;
+        right: 0;
+        background: #ffffff !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
     }
+}
+
+/* Prevent body scroll when nav is open */
+body.menu-open {
+    overflow: hidden !important;
+    height: 100vh !important;
 }
 </style>
 
 <script>
+// Mobile Menu Toggle with Body Scroll Prevention
+function toggleMobileMenu() {
+    const nav = document.getElementById('navLinks');
+    const toggler = document.querySelector('.navbar-toggler');
+    const isOpen = nav.classList.toggle('open');
+    toggler.classList.toggle('active');
+    
+    if (isOpen) {
+        document.body.classList.add('menu-open');
+    } else {
+        document.body.classList.remove('menu-open');
+    }
+}
+
 // Navbar scroll effect
 window.addEventListener('scroll', function() {
     const nav = document.getElementById('navbar');
     if (nav) nav.classList.toggle('scrolled', window.scrollY > 50);
 });
+
 // Close mobile nav on outside click
 document.addEventListener('click', function(e) {
     const nav = document.getElementById('navLinks');
@@ -490,8 +515,10 @@ document.addEventListener('click', function(e) {
     if (nav && toggle && !nav.contains(e.target) && !toggle.contains(e.target)) {
         nav.classList.remove('open');
         toggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
     }
 });
+
 // User dropdown toggle
 function toggleUserDropdown() {
     const wrap = document.getElementById('userDropdownWrap');
