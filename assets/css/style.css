@@ -1579,17 +1579,20 @@ select.form-control {
 }
 
 /* Admin Sidebar */
+/* Admin Sidebar - Revamped for White Mix */
 .admin-sidebar {
     width: 260px;
     height: 100vh;
-    background: var(--gradient-deep);
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 900;
-    box-shadow: 4px 0 20px rgba(136, 14, 79, 0.25);
+    z-index: 2000;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.05);
+    border-right: 1px solid var(--border);
+    transition: var(--transition);
 }
 
 .sidebar-logo {
@@ -1639,10 +1642,10 @@ select.form-control {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.45);
+    color: var(--gray-light);
     padding: 0.75rem 0.5rem;
     margin-bottom: 0.2rem;
-    cursor: pointer;
+    cursor: default;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1683,7 +1686,7 @@ select.form-control {
     border-radius: var(--radius);
     font-size: 0.875rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.78);
+    color: var(--dark-2);
     transition: var(--transition);
     margin-bottom: 0.2rem;
 }
@@ -1695,13 +1698,14 @@ select.form-control {
 }
 
 .sidebar-link:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
+    background: var(--primary-light);
+    color: var(--primary);
 }
 
 .sidebar-link.active {
-    background: rgba(255, 255, 255, 0.22);
+    background: var(--primary);
     color: white;
+    box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
 }
 
 /* Sidebar Models - No restricted scroll */
@@ -2043,10 +2047,10 @@ select.form-control {
     .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 3rem; }
     .halls-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
     
-    .admin-sidebar { transform: translateX(-100%); transition: 0.4s; z-index: 1100; box-shadow: none; }
-    .admin-sidebar.open { transform: translateX(0); box-shadow: 4px 0 30px rgba(0,0,0,0.5); }
+    .admin-sidebar { transform: translateX(-100%); transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1); z-index: 3000; box-shadow: none; border-right: none; }
+    .admin-sidebar.open { transform: translateX(0); box-shadow: 15px 0 50px rgba(0,0,0,0.15); }
     .admin-main { margin-left: 0; }
-    .admin-menu-toggle { display: block; }
+    .admin-menu-toggle { display: flex !important; align-items: center; justify-content: center; }
 }
 
 /* 2. MOBILE (Phones) */
