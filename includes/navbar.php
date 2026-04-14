@@ -75,23 +75,23 @@ $current_view = $_GET['view'] ?? '';
         </div>
     </div>
 
-    <!-- BOTTOM ROW: Navigation Links -->
-    <div class="navbar-bottom" style="display:flex; justify-content:center; background:rgba(255, 255, 255, 0.95); backdrop-filter:blur(10px); border-bottom:1px solid #fdf2f8; z-index:1000; position:relative;">
-        <ul class="nav-links has-dual-nav" id="navLinks" style="margin:0; justify-content:space-between; width:100%; max-width:1200px; gap:0;">
-        <!-- Mobile Close Button -->
-        <li class="mobile-only" style="display:none; position:absolute; top:12px; right:16px; z-index:10;">
-            <div class="close-nav" onclick="document.getElementById('navLinks').classList.remove('open'); document.querySelector('.navbar-toggler').classList.remove('active')" style="font-size:1.4rem; color:var(--primary); cursor:pointer;"><i class="fas fa-times"></i></div>
+    <!-- NAVIGATION LINKS (Moved outside bottom bar to prevent clipping on mobile) -->
+    <ul class="nav-links has-dual-nav" id="navLinks" style="margin:0; justify-content:space-between; width:100%; max-width:1200px; gap:0;">
+        <!-- Mobile Close Button (Optional since toggler turns to X, but kept for UX) -->
+        <li class="mobile-only" style="display:none; position:absolute; top:20px; right:20px; z-index:20;">
+            <div class="close-nav" onclick="document.getElementById('navLinks').classList.remove('open'); document.querySelector('.navbar-toggler').classList.remove('active')" style="width:40px; height:40px; border-radius:50%; background:var(--primary-light); display:flex; align-items:center; justify-content:center; color:var(--primary); cursor:pointer; box-shadow:var(--shadow-sm);"><i class="fas fa-times"></i></div>
         </li>
-        <li class="mobile-only" style="display:none; text-align:center; padding:1rem 1rem 0.5rem;">
-            <?php if (isLoggedIn()): ?>
-                <i class="fas fa-user-circle" style="font-size:2.4rem; color:var(--primary); margin-bottom:0.4rem; display:block;"></i>
-                <div style="font-family:'Poppins',sans-serif; font-weight:700; font-size:0.9rem; color:var(--dark);"><?php echo htmlspecialchars($_SESSION['user_name']); ?></div>
-                <div style="font-size:0.7rem; color:#22c55e; font-weight:600; margin-top:0.15rem;">&#9679; Online</div>
-            <?php else: ?>
-                <div style="font-family:'Poppins',sans-serif; font-weight:700; font-size:0.8rem; color:var(--primary);"><?php echo $brand_name; ?></div>
-                <div style="font-size:0.65rem; color:var(--gray); margin-top:0.15rem;">Where Comfort Meets Celebration</div>
-            <?php endif; ?>
-            <div style="width:30px; height:2px; background:var(--secondary); margin:0.6rem auto 0; border-radius:1px; opacity:0.5;"></div>
+        <li class="mobile-only" style="display:none; text-align:center; padding:2rem 1rem 1rem;">
+            <div class="brand-logo-circle" style="width:60px; height:60px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--primary-light); margin: 0 auto 0.8rem;">
+                <?php if (!empty($brand_logo)): ?>
+                    <img src="assets/images/<?php echo $brand_logo; ?>" style="width:100%; height:100%; object-fit:cover;">
+                <?php else: ?>
+                    <i class="fa-solid fa-heart" style="color:var(--primary); font-size:2rem;"></i>
+                <?php endif; ?>
+            </div>
+            <div style="font-family:'Cinzel',serif; font-weight:900; font-size:1.1rem; color:var(--primary); text-transform:uppercase; letter-spacing:0.05em;"><?php echo $brand_name; ?></div>
+            <div style="font-size:0.75rem; color:var(--gray); margin-top:0.25rem;">Where Comfort Meets Celebration</div>
+            <div style="width:40px; height:3px; background:var(--gradient-primary); margin:1.2rem auto 0.5rem; border-radius:2px; opacity:0.6;"></div>
         </li>
         <li>
             <a href="index.php" class="<?php echo $current_page === 'index.php' ? 'active' : ''; ?>">
@@ -130,32 +130,38 @@ $current_view = $_GET['view'] ?? '';
         </li>
 
         <?php if (isLoggedIn()): ?>
-            <!-- MOBILE ONLY: Plain nav links -->
-            <li class="nav-mobile-only">
+            <li class="nav-mobile-only" style="margin-top:0.5rem; border-top:1px solid #f1f5f9; padding-top:0.5rem;">
                 <a href="my_bookings.php" class="<?php echo $current_page === 'my_bookings.php' ? 'active' : ''; ?>">
-                    <i class="fas fa-calendar-check"></i> My Bookings
+                    <i class="fas fa-calendar-check" style="color:var(--primary);"></i> My Bookings
                 </a>
             </li>
             <?php if (isAdmin()): ?>
             <li class="nav-mobile-only">
-                <a href="admin/dashboard.php" class="<?php echo $current_page === 'admin/dashboard.php' ? 'active' : ''; ?>">
-                    <i class="fas fa-cog"></i> Admin
+                <a href="admin/dashboard.php">
+                    <i class="fas fa-user-shield" style="color:var(--primary);"></i> Admin Panel
                 </a>
             </li>
             <?php endif; ?>
             <li class="nav-mobile-only">
-                <a href="logout.php">
+                <a href="logout.php" style="color:var(--danger) !important;">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </li>
         <?php else: ?>
-            <li class="nav-mobile-only nav-btn-wrap">
-                <a href="login.php" class="btn btn-outline btn-sm <?php echo $current_page === 'login.php' ? 'active' : ''; ?>">
-                    <i class="fas fa-sign-in-alt"></i> Login
+            <li class="nav-mobile-only nav-btn-wrap" style="padding: 1rem 1rem !important;">
+                <a href="login.php" class="btn btn-primary" style="width:100%; justify-content:center; border-radius:12px;">
+                    <i class="fas fa-sign-in-alt"></i> Login / Register
                 </a>
             </li>
         <?php endif; ?>
     </ul>
+
+    <!-- BOTTOM ROW: Container for desktop spacing -->
+    <div class="navbar-bottom" style="display:flex; justify-content:center; background:rgba(255, 255, 255, 0.95); backdrop-filter:blur(10px); border-bottom:1px solid #fdf2f8; z-index:1000; position:relative; min-height:55px;">
+        <div style="width:100%; max-width:1200px; display:flex;">
+            <!-- Dummy spacer or category links could go here if needed to stay in place -->
+        </div>
+    </div>
 </nav>
 
 <style>
@@ -186,14 +192,17 @@ $current_view = $_GET['view'] ?? '';
 @media (max-width: 320px){
     .navbar-brand span { font-size: 0.82rem !important; white-space: normal !important; max-width: 160px; line-height: 1.3; }
 }
-@media (max-width: 1150px) {
+    @media (max-width: 1150px) {
     .nav-links {
         background: #ffffff !important;
-        padding: 3rem 1.25rem 1.25rem !important;
+        padding: 1rem 1.25rem 2rem !important;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
+        box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+        border-right: 1px solid #f1f5f9;
+        z-index: 2000 !important;
     }
     .nav-links li.mobile-only { display: block !important; }
     .nav-links a:not(.btn) {

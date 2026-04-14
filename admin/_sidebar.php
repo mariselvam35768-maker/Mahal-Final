@@ -3,17 +3,23 @@
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <aside class="admin-sidebar" id="adminSidebar">
-    <div class="sidebar-logo" style="display:flex; align-items:center; gap:0.8rem; padding:1.5rem 1.25rem;">
-        <div style="width:40px; height:40px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:white; flex-shrink:0; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
-            <?php if (!empty($brand_logo)): ?>
-                <img src="../assets/images/<?php echo htmlspecialchars($brand_logo); ?>" style="width:100%; height:100%; object-fit:cover;">
-            <?php else: ?>
-                <i class="fa-solid fa-heart" style="color:var(--primary); font-size:1.2rem;"></i>
-            <?php endif; ?>
+    <div class="sidebar-logo" style="display:flex; align-items:center; justify-content:space-between; padding:1.5rem 1.25rem;">
+        <div style="display:flex; align-items:center; gap:0.8rem;">
+            <div style="width:40px; height:40px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:white; flex-shrink:0; box-shadow:0 2px 5px rgba(0,0,0,0.2);">
+                <?php if (!empty($brand_logo)): ?>
+                    <img src="../assets/images/<?php echo htmlspecialchars($brand_logo); ?>" style="width:100%; height:100%; object-fit:cover;">
+                <?php else: ?>
+                    <i class="fa-solid fa-heart" style="color:var(--primary); font-size:1.2rem;"></i>
+                <?php endif; ?>
+            </div>
+            <div style="font-weight:800; font-size:1.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:160px; line-height:1.2; color: var(--primary);">
+                <?php echo htmlspecialchars($brand_name); ?>
+            </div>
         </div>
-        <div style="font-weight:800; font-size:1.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px; line-height:1.2; color: white;">
-            <?php echo htmlspecialchars($brand_name); ?>
-        </div>
+        <!-- Mobile Close Button -->
+        <button class="admin-sidebar-close mobile-only" onclick="document.getElementById('adminSidebar').classList.remove('open'); document.querySelector('.sidebar-overlay').click();" style="display:none; background:rgba(255,255,255,0.2); border:none; width:32px; height:32px; border-radius:50%; color:white; align-items:center; justify-content:center; cursor:pointer;">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
 
     <nav class="sidebar-nav">
@@ -98,11 +104,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </nav>
 
     <div style="padding: 1rem; text-align: center;">
-        <div style="font-size: 0.65rem; color: rgba(255,255,255,0.8); letter-spacing: 0.05em; font-weight: 600;"><?php echo $brand_name; ?> Admin</div>
+        <div style="font-size: 0.65rem; color: var(--gray-light); letter-spacing: 0.05em; font-weight: 600; text-transform:uppercase;"><?php echo $brand_name; ?> Admin</div>
     </div>
 
-    <div class="sidebar-footer">
-        <a href="logout.php" onclick="return confirm('Are you sure to Logout?')" class="sidebar-link" style="background:rgba(239,68,68,0.1);color:#fca5a5;">
+    <div class="sidebar-footer" style="padding: 1rem; border-top: 1px solid var(--border);">
+        <a href="logout.php" onclick="return confirm('Are you sure to Logout?')" class="sidebar-link" style="background:rgba(239,68,68,0.05); color:var(--danger); border: 1px solid rgba(239,68,68,0.1);">
             <i class="fas fa-sign-out-alt"></i> Logout
         </a>
     </div>
