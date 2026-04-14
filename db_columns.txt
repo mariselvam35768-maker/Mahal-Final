@@ -1,0 +1,43 @@
+Columns in 'halls':
+- id
+- name
+- location
+- capacity
+- price_per_day
+- description
+- facilities
+- main_image
+- created_at
+
+Columns in 'rooms':
+- id
+- category_id
+- name
+- location
+- capacity
+- total_rooms
+- price_per_day
+- morning_slot_price
+- evening_slot_price
+- advance_amount
+- description
+- facilities
+- main_image
+- created_at
+
+Columns in 'bookings':
+- id
+- booking_id
+- user_id
+- hall_id
+- room_id
+- event_name
+- event_date
+- slot_id
+- is_full_day
+- guest_count
+- advance_amount
+- status
+- payment_status
+- created_at
+

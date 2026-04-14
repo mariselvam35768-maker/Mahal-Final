@@ -1,0 +1,1 @@
+Column 'total_rooms' already exists.

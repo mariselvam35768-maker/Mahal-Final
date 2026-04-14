@@ -1,0 +1,1 @@
+KEYS: id, category, image_path, title, title_ta, description_en, description_ta, created_at

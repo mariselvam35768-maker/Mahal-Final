@@ -1,0 +1,29 @@
+Tables in database:
+- admin
+- bookings
+- contact
+- explore
+- gallery
+- halls
+- payments
+- room_categories
+- rooms
+- settings
+- slots
+- users
+
+Columns in 'users' table:
+- id (int(11))
+- name (varchar(255))
+- email (varchar(255))
+- phone (varchar(20))
+- password (varchar(255))
+- role (enum('admin','user'))
+- created_at (timestamp)
+
+Columns in 'admin' table:
+- id (int(10))
+- email (varchar(50))
+- password (varchar(100))
+- name (varchar(100))
+- role (varchar(50))

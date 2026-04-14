@@ -1,0 +1,3 @@
+Removing git_debug.txt
+Removing git_reset_log.txt
+Removing git_reset_via_php.php
