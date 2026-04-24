@@ -172,16 +172,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            padding-top: 75px;
+            padding-top: 195px;
         }
 
         .contact-info-card {
             display: flex;
             align-items: flex-start;
-            gap: 1.25rem;
-            padding: 1.5rem;
+            gap: 1.5rem;
+            padding: 2rem;
             background: white;
-            border-radius: var(--radius-lg);
+            border-radius: var(--radius-sm);
             border: 1px solid var(--border);
             transition: var(--transition);
         }
@@ -189,17 +189,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send'])) {
         .contact-info-card:hover {
             box-shadow: var(--shadow-md);
             border-color: var(--primary);
+            transform: translateY(-5px);
         }
 
         .ci-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius);
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             flex-shrink: 0;
+            background: var(--primary-light);
+            color: var(--primary);
         }
 
         .faq-item {
@@ -310,126 +313,94 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send'])) {
 
                 <!-- LEFT: CONTACT INFO -->
                 <div>
-                    <div class="section-label"><i class="fas fa-address-book"></i> Get in Touch</div>
-                    <h2 class="section-heading">We'd Love to <span>Hear From You</span></h2>
-                    <p style="color:var(--gray);font-size:0.9rem;line-height:1.7;margin-bottom:2rem;">Reach out via phone, email, or fill the form. Our support team responds within 24 hours on business days.</p>
+                    <div class="section-label">Connect With Us</div>
+                    <h2 class="section-heading" style="font-family:'Playfair Display', serif;">How Can We <span>Help You?</span></h2>
+                    <p style="color:var(--gray);font-size:1rem;line-height:1.8;margin-bottom:3rem;">Whether you're planning a grand wedding or a simple stay, our team is ready to assist you with all your requirements.</p>
 
-                    <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2rem;">
-                        <?php
-                        $contacts = [
-                            ['fas fa-phone',         '#e91e63','#ede9fe','Call Us Directly',    '+91 98765 43210',              'Mon-Sat, 9:00 AM - 6:00 PM',       'Available for instant enquiries'],
-                            ['fas fa-envelope',      '#e91e63','#ede9fe','Email Support',        'srilakshmimahal@gmail.com',    'contact@srilakshmimahal.com',       'We reply within 24 hours'],
-                            ['fas fa-map-marker-alt','#e91e63','#ede9fe','Our Location',         'Sri Lakshmi Residency & Mahal','Srivilliputhur, Tamil Nadu',        'In the heart of the city'],
-                            ['fab fa-whatsapp',      '#e91e63','#ede9fe','WhatsApp Booking',     'Easy chat-based booking',      'Fast & convenient',                 'Message us anytime'],
-                        ];
-                        foreach ($contacts as [$icon, $col, $bg, $label, $line1, $line2, $line3]): ?>
-                            <div class="contact-info-card">
-                                <div class="ci-icon" style="background:<?php echo $bg; ?>;color:<?php echo $col; ?>;">
-                                    <i class="<?php echo $icon; ?>"></i>
-                                </div>
-                                <div>
-                                    <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-light);margin-bottom:0.3rem;"><?php echo $label; ?></div>
-                                    <div style="font-weight:700;font-size:0.95rem;color:var(--dark);"><?php echo $line1; ?></div>
-                                    <div style="font-size:0.82rem;color:var(--gray);margin-top:0.15rem;"><?php echo $line2; ?></div>
-                                    <div style="font-size:0.75rem;color:var(--gray-light);margin-top:0.1rem;"><?php echo $line3; ?></div>
-                                </div>
+                    <div style="display:flex;flex-direction:column;gap:1.5rem;margin-bottom:3rem;">
+                        <div class="contact-info-card">
+                            <div class="ci-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);margin-bottom:0.5rem;">Call Us</div>
+                                <div style="font-weight:700;font-size:1.1rem;color:var(--dark);"><?php echo $footer_phone; ?></div>
+                                <div style="font-size:0.9rem;color:var(--gray);margin-top:0.25rem;">Mon - Sat, 9am - 6pm</div>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
+                        <div class="contact-info-card">
+                            <div class="ci-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);margin-bottom:0.5rem;">Email Us</div>
+                                <div style="font-weight:700;font-size:1.1rem;color:var(--dark);"><?php echo $footer_email; ?></div>
+                                <div style="font-size:0.9rem;color:var(--gray);margin-top:0.25rem;">We reply within 24 hours</div>
+                            </div>
+                        </div>
+                        <div class="contact-info-card">
+                            <div class="ci-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <div style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);margin-bottom:0.5rem;">Visit Us</div>
+                                <div style="font-weight:700;font-size:1.1rem;color:var(--dark);">Sri Lakshmi Residency & Mahal</div>
+                                <div style="font-size:0.9rem;color:var(--gray);margin-top:0.25rem;"><?php echo $footer_address; ?></div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Social Links -->
                     <div>
-                        <div style="font-weight:700;font-size:0.85rem;margin-bottom:0.75rem;color:var(--dark-2);">Follow Us</div>
-                        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
-                            <?php foreach ([
-                                ['fab fa-facebook-f','#e91e63','Facebook'],
-                                ['fab fa-instagram', '#e91e63','Instagram'],
-                                ['fab fa-whatsapp',  '#e91e63','WhatsApp'],
-                                ['fab fa-youtube',   '#e91e63','YouTube'],
-                            ] as [$ic,$col,$lbl]): ?>
-                                <a href="#" title="<?php echo $lbl; ?>" style="width:42px;height:42px;border-radius:50%;background:white;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:<?php echo $col; ?>;font-size:1rem;transition:var(--transition);"
-                                    onmouseover="this.style.background='<?php echo $col; ?>';this.style.color='white';this.style.borderColor='<?php echo $col; ?>'"
-                                    onmouseout="this.style.background='white';this.style.color='<?php echo $col; ?>';this.style.borderColor='var(--border)'">
-                                    <i class="<?php echo $ic; ?>"></i>
-                                </a>
-                            <?php endforeach; ?>
+                        <div style="font-weight:700;font-size:0.9rem;margin-bottom:1rem;color:var(--dark);">Follow Our Story</div>
+                        <div style="display:flex;gap:1rem;">
+                            <a href="#" class="social-btn" style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;transition:var(--transition);"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-btn" style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;transition:var(--transition);"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-btn" style="width:40px;height:40px;border-radius:50%;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;transition:var(--transition);"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- RIGHT: CONTACT FORM -->
                 <div>
-                    <div style="background:white;border-radius:var(--radius-xl);border:1px solid var(--border);box-shadow:var(--shadow-md);overflow:hidden;">
-                        <div class="contact-form-header" style="background:var(--gradient-primary);padding:1.75rem 2rem;color:white;">
-                            <h3 style="color:white;margin-bottom:0.25rem;"><i class="fas fa-paper-plane"></i> Send Us a Message</h3>
-                            <p style="color:rgba(255,255,255,0.8);font-size:0.875rem;margin:0;">Fill the form and we'll get back to you shortly.</p>
+                    <div style="background:white;border-radius:var(--radius-md);border:1px solid var(--border);box-shadow:var(--shadow-md);overflow:hidden;">
+                        <div class="contact-form-header" style="background:var(--primary-deep);padding:2.5rem;color:white;">
+                            <h3 style="color:white;margin-bottom:0.5rem;font-family:'Playfair Display', serif;">Message Our Team</h3>
+                            <p style="color:rgba(255,255,255,0.6);font-size:0.9rem;margin:0;">Fill the form and we'll get back to you shortly.</p>
                         </div>
-                        <div class="contact-form-body" style="padding:2rem;">
+                        <div class="contact-form-body" style="padding:2.5rem;">
                             <?php if ($form_success): ?>
-                                <!-- Hidden trigger for global alert popup -->
-                                <div class="alert alert-success" style="display:none;">Message Sent! Thank you for reaching out. Our team will respond within 24 hours.</div>
-                                
-                                <div style="text-align:center;padding:3rem 1rem;">
-                                    <div style="width:72px;height:72px;background:#d1fae5;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                                        <i class="fas fa-check-circle" style="font-size:2rem;color:#10b981;"></i>
+                                <div style="text-align:center;padding:2rem 0;">
+                                    <div style="width:80px;height:80px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;">
+                                        <i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i>
                                     </div>
-                                    <h3 style="margin-bottom:0.5rem;">Message Sent!</h3>
-                                    <p style="color:var(--gray);margin-bottom:1.5rem;">Thank you for reaching out. Our team will respond within 24 hours.</p>
-                                    <a href="contact.php" class="btn btn-primary"><i class="fas fa-redo"></i> Send Another Message</a>
+                                    <h3 style="margin-bottom:1rem; font-family:'Playfair Display', serif;">Inquiry Received!</h3>
+                                    <p style="color:var(--gray);margin-bottom:2.5rem; line-height:1.6;">Thank you for reaching out. Our representative will contact you on your provided email or phone number within 24 hours.</p>
+                                    <a href="contact.php" class="btn btn-primary">Back to Contact</a>
                                 </div>
                             <?php else: ?>
                                 <?php if ($form_error): ?>
-                                    <div class="alert alert-danger" style="background:#fee2e2;color:#991b1b;padding:0.85rem 1rem;border-radius:var(--radius);margin-bottom:1.25rem;font-size:0.875rem;">
+                                    <div class="alert alert-danger" style="margin-bottom:2rem;">
                                         <i class="fas fa-exclamation-circle"></i> <?php echo $form_error; ?>
                                     </div>
                                 <?php endif; ?>
                                 <form method="POST">
                                     <div class="contact-form-grid">
                                         <div class="form-group">
-                                            <label>Your Name <span style="color:var(--danger)">*</span></label>
-                                            <div class="input-icon-wrap">
-                                                <i class="fas fa-user"></i>
-                                                <input type="text" name="name" data-validate="name" class="form-control" placeholder="Full Name" required value="<?php echo htmlspecialchars($_POST['name'] ?? (isLoggedIn() ? $_SESSION['user_name'] : '')); ?>">
-                                            </div>
+                                            <label>Full Name</label>
+                                            <input type="text" name="name" class="form-control" placeholder="John Doe" required value="<?php echo htmlspecialchars($_POST['name'] ?? (isLoggedIn() ? $_SESSION['user_name'] : '')); ?>">
                                         </div>
                                         <div class="form-group">
                                             <label>Phone Number</label>
-                                            <div class="input-icon-wrap">
-                                                <i class="fas fa-phone"></i>
-                                                <input type="tel" name="phone" data-validate="phone" class="form-control" placeholder="10-digit mobile" value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
-                                            </div>
+                                            <input type="tel" name="phone" class="form-control" placeholder="98765 43210" value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label>Email Address <span style="color:var(--danger)">*</span></label>
-                                        <div class="input-icon-wrap">
-                                            <i class="fas fa-envelope"></i>
-                                            <input type="email" name="email" class="form-control" placeholder="your@email.com" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
-                                        </div>
+                                        <label>Email Address</label>
+                                        <input type="email" name="email" class="form-control" placeholder="john@example.com" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
                                     </div>
-
-
-                                    <!-- <div class="form-group">
-                                        <label>Subject</label>
-                                        <select name="subject" class="form-control">
-                                            <option value="">Select a topic...</option>
-                                            <option value="Hall Booking Inquiry" <?php echo ($_POST['subject'] ?? '') === 'Hall Booking Inquiry' ? 'selected' : ''; ?>>Hall Booking Inquiry</option>
-                                            <option value="Pricing & Packages" <?php echo ($_POST['subject'] ?? '') === 'Pricing & Packages' ? 'selected' : ''; ?>>Pricing & Packages</option>
-                                            <option value="Slot Availability" <?php echo ($_POST['subject'] ?? '') === 'Slot Availability' ? 'selected' : ''; ?>>Slot Availability</option>
-                                            <option value="Booking Cancellation" <?php echo ($_POST['subject'] ?? '') === 'Booking Cancellation' ? 'selected' : ''; ?>>Booking Cancellation</option>
-                                            <option value="Technical Issue" <?php echo ($_POST['subject'] ?? '') === 'Technical Issue' ? 'selected' : ''; ?>>Technical Issue</option>
-                                            <option value="General Enquiry" <?php echo ($_POST['subject'] ?? '') === 'General Enquiry' ? 'selected' : ''; ?>>General Enquiry</option>
-                                            <option value="List My Hall" <?php echo ($_POST['subject'] ?? '') === 'List My Hall' ? 'selected' : ''; ?>>List My Hall on Sri Lakshmi Residency & Mahal</option>
-                                        </select>
-                                    </div> -->
 
                                     <div class="form-group">
-                                        <label>Message <span style="color:var(--danger)">*</span></label>
-                                        <textarea name="message" class="form-control" rows="5" placeholder="Tell us how we can help you..." required style="resize:vertical;"><?php echo htmlspecialchars($_POST['message'] ?? ''); ?></textarea>
+                                        <label>How can we help?</label>
+                                        <textarea name="message" class="form-control" rows="5" placeholder="Tell us more about your event or stay requirements..." required style="resize:vertical;"><?php echo htmlspecialchars($_POST['message'] ?? ''); ?></textarea>
                                     </div>
 
-                                    <button type="submit" name="send" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">
-                                        <i class="fas fa-paper-plane"></i> Send Message
+                                    <button type="submit" name="send" class="btn btn-primary btn-lg" style="width:100%;justify-content:center; border-radius: var(--radius-sm); margin-top:1rem;">
+                                        <i class="fas fa-paper-plane"></i> Send Inquiry
                                     </button>
                                 </form>
                             <?php endif; ?>
@@ -474,13 +445,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send'])) {
     <!-- CTA -->
     <section class="section" style="background:white;">
         <div class="container">
-            <div class="cta-banner" style="background:var(--gradient-primary);border-radius:var(--radius-xl);padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;">
+            <div class="cta-banner" style="background:var(--primary-deep);border-radius:var(--radius-md);padding:6rem 3rem;text-align:center;position:relative;overflow:hidden;">
                 <div style="position:relative;z-index:1;">
-                    <h2 style="color:white;font-size:2.25rem;margin-bottom:0.75rem;">Ready to Book Your Venue?</h2>
-                    <p style="color:rgba(255,255,255,0.8);margin-bottom:2rem;font-size:1.05rem;">Browse our collection of verified halls and make your event unforgettable.</p>
-                    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                        <a href="halls.php" class="btn btn-white btn-lg"><i class="fas fa-building"></i> Browse Halls</a>
-                        <a href="about.php" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.3);"><i class="fas fa-info-circle"></i> About Us</a>
+                    <h2 style="color:white;font-size:2.5rem;margin-bottom:1rem; font-family:'Playfair Display', serif;">Experience Premium Luxury</h2>
+                    <p style="color:rgba(255,255,255,0.6);margin-bottom:3rem;font-size:1.1rem; max-width:600px; margin-left:auto; margin-right:auto;">Book your preferred date today and let us make your celebration truly unforgettable.</p>
+                    <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+                        <a href="halls.php" class="btn btn-primary btn-lg">Browse Venues</a>
+                        <a href="about.php" class="btn btn-outline btn-lg" style="border-color:white; color:white !important; background:transparent;">Our Story</a>
                     </div>
                 </div>
             </div>

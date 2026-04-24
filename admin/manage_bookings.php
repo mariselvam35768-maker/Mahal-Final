@@ -384,10 +384,10 @@ try {
                                     <td>
                                         <?php 
                                         $status_styles = [
-                                            'pending'    => ['color' => '#92400e', 'bg' => '#fef3c7', 'label' => 'Pending'],
-                                            'processing' => ['color' => '#1e40af', 'bg' => '#dbeafe', 'label' => 'Processing'],
-                                            'confirmed'  => ['color' => '#065f46', 'bg' => '#d1fae5', 'label' => 'Confirmed'],
-                                            'cancelled'  => ['color' => '#991b1b', 'bg' => '#fee2e2', 'label' => 'Cancelled']
+                                            'pending'    => ['color' => '#B08D57', 'bg' => '#F9F4E1', 'label' => 'Pending'],
+                                            'processing' => ['color' => '#6B4F3F', 'bg' => '#E5D5CB', 'label' => 'Processing'],
+                                            'confirmed'  => ['color' => '#2D6A4F', 'bg' => '#E2EFE7', 'label' => 'Confirmed'],
+                                            'cancelled'  => ['color' => '#9B2226', 'bg' => '#F5E6E6', 'label' => 'Cancelled']
                                         ];
                                         $cur_style = $status_styles[$b['status']] ?? $status_styles['pending'];
                                         ?>

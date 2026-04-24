@@ -69,9 +69,10 @@ try {
         .quick-action i { color: var(--primary); width: 18px; text-align: center; }
 
         /* Stat Cards */
-        .admin-stat-card { display: flex; align-items: center; gap: 1rem; padding: 1.25rem 1.5rem; background: #fff; border-radius: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .admin-stat-card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; background: #fff; border-radius: 1rem; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
         .glass-card { background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); }
-        .stat-icon { width: 52px; height: 52px; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
+        .stat-icon { width: 52px; height: 52px; border-radius: 1.25rem; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; transition: var(--transition); box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+        .admin-stat-card:hover .stat-icon { transform: scale(1.1) rotate(5deg); }
         .stagger-children > * { opacity: 1; }
         .reveal { opacity: 1; }
 
@@ -86,13 +87,17 @@ try {
     <div class="admin-main">
         <!-- Topbar -->
         <div class="admin-topbar">
-            <div>
-                <div style="font-weight:700;font-size:1rem;">Dashboard Overview</div>
-                <!--<div style="font-size:0.78rem;color:var(--gray);"><?php echo date('l, d F Y'); ?></div>-->
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <button class="admin-menu-toggle" onclick="document.getElementById('adminSidebar').classList.add('open')" style="display:none; background:none; border:none; font-size:1.25rem; color:var(--dark); cursor:pointer;">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div>
+                    <div style="font-weight:700;font-size:1rem;">Dashboard Overview</div>
+                </div>
             </div>
             <div style="display:flex;align-items:center;gap:1rem;">
                 <?php if ($stats['pending'] > 0): ?>
-                    <a href="manage_bookings.php?status=pending" style="display:flex;align-items:center;gap:0.5rem;background:#fef3c7;color:#92400e;padding:0.4rem 0.85rem;border-radius:var(--radius-full);font-size:0.75rem;font-weight:700;">
+                    <a href="manage_bookings.php?status=pending" style="display:flex;align-items:center;gap:0.5rem;background:#F9F4E1;color:#B08D57;padding:0.4rem 0.85rem;border-radius:var(--radius-full);font-size:0.75rem;font-weight:700; border: 1px solid rgba(176, 141, 87, 0.2);">
                         <i class="fas fa-bell"></i> <?php echo $stats['pending']; ?> Pending
                     </a>
                 <?php endif; ?>
@@ -112,15 +117,15 @@ try {
 
 
             <!-- Stat Cards -->
-            <div class="stagger-children" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem;margin-bottom:1.5rem;">
+            <div class="stagger-children" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-bottom:1.25rem;">
                 <?php
                 $stat_items = [
-                    ['label'=>'Total Halls',  'val'=>$stats['halls'],    'icon'=>'fas fa-building', 'bg'=>'#fce7f3','color'=>'#e91e63','sub'=>'Active venues'],
-                    ['label'=>'Total Bookings','val'=>$stats['bookings'],'icon'=>'fas fa-calendar-check','bg'=>'#fce7f3','color'=>'#e91e63','sub'=>'All time'],
-                    ['label'=>'Active Users', 'val'=>$stats['users'],    'icon'=>'fas fa-users',  'bg'=>'#fce7f3','color'=>'#e91e63','sub'=>'Registered'],
-                    ['label'=>'Pending',       'val'=>$stats['pending'], 'icon'=>'fas fa-hourglass-half','bg'=>'#fce7f3','color'=>'#e91e63','sub'=>'Awaiting review'],
-                    ['label'=>'Processing',    'val'=>$stats['processing'], 'icon'=>'fas fa-sync','bg'=>'#fce7f3','color'=>'#e91e63','sub'=>'In progress'],
-                    ['label'=>'Confirmed',     'val'=>$stats['confirmed'],'icon'=>'fas fa-check-circle','bg'=>'#fce7f3','color'=>'#e91e63','sub'=>'This month'],
+                    ['label'=>'Total Halls',  'val'=>$stats['halls'],    'icon'=>'fas fa-building', 'bg'=>'var(--primary-light)','color'=>'var(--primary)','sub'=>'Active venues'],
+                    ['label'=>'Total Bookings','val'=>$stats['bookings'],'icon'=>'fas fa-calendar-check','bg'=>'var(--tan-soft)','color'=>'var(--primary-deep)','sub'=>'All time'],
+                    ['label'=>'Active Users', 'val'=>$stats['users'],    'icon'=>'fas fa-users',  'bg'=>'var(--primary-light)','color'=>'var(--primary)','sub'=>'Registered'],
+                    ['label'=>'Pending',       'val'=>$stats['pending'], 'icon'=>'fas fa-hourglass-half','bg'=>'#F4EBD0','color'=>'#B08D57','sub'=>'Awaiting review'],
+                    ['label'=>'Processing',    'val'=>$stats['processing'], 'icon'=>'fas fa-sync','bg'=>'var(--tan-soft)','color'=>'var(--primary-deep)','sub'=>'In progress'],
+                    ['label'=>'Confirmed',     'val'=>$stats['confirmed'],'icon'=>'fas fa-check-circle','bg'=>'var(--primary-light)','color'=>'var(--primary)','sub'=>'This month'],
                 ];
                 foreach ($stat_items as $item): ?>
                     <div class="admin-stat-card glass-card reveal">

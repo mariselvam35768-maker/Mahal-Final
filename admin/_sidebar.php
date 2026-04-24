@@ -12,7 +12,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <i class="fa-solid fa-heart" style="color:var(--primary); font-size:1.2rem;"></i>
                 <?php endif; ?>
             </div>
-            <div style="font-weight:800; font-size:1.25rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:160px; line-height:1.2; color: var(--primary);">
+            <div style="font-weight:800; font-size:1.1rem; line-height:1.2; color: var(--primary);">
                 <?php echo htmlspecialchars($brand_name); ?>
             </div>
         </div>

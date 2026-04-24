@@ -61,7 +61,7 @@ if (isset($_GET['success'])) {
     <link rel="stylesheet" href="assets/css/style.css?v=rose2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { padding-top: 75px; }
+        body { padding-top: 185px; }
         .booking-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; transition: var(--transition); margin-bottom: 1.25rem; }
         .booking-card:hover { box-shadow: var(--shadow-md); }
         .booking-card-header { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid #f8fafc; flex-wrap: wrap; gap: 0.75rem; }

@@ -37,12 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/images/halls/Banner-1.webp') no-repeat center center/cover; 
+            background: linear-gradient(rgba(46,37,30,0.7), rgba(46,37,30,0.7)), url('assets/images/halls/Banner-1.webp') no-repeat center center/cover; 
             min-height: 100vh; 
             display: flex; 
-        }
-        .auth-left {
-            display: none;
+            font-family: 'Inter', sans-serif;
         }
         .auth-right {
             width: 100%;
@@ -51,24 +49,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center;
             padding: 2rem 1.5rem;
         }
-        @media(max-width:1150px) {
-            .auth-right { width: 100%; }
-        }
-        @media(max-width:480px) {
-            .auth-right { padding: 1.5rem 1rem; }
-            .auth-form-wrap { max-width: 100%; padding: 2rem !important; }
-            h1 { font-size: 1.5rem !important; }
-        }
         .auth-form-wrap { 
             width: 100%; 
-            max-width: 450px; 
-            background: rgba(255, 255, 255, 0.6); 
-            padding: 3rem; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            max-width: 480px; 
+            background: rgba(255, 255, 255, 0.95); 
+            padding: 3.5rem; 
+            border-radius: var(--radius-sm); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         }
-        .divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; color: var(--gray-light); font-size: 0.8rem; }
+        h1 { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--dark); }
+        .form-label { font-weight: 600; color: var(--dark-2); font-size: 0.9rem; }
+        .divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; color: var(--gray); font-size: 0.8rem; }
         .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        @media(max-width:480px) {
+            .auth-form-wrap { padding: 2.5rem 1.5rem; }
+        }
     </style>
 </head>
 <body>
@@ -109,9 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!-- RIGHT FORM PANEL -->
-    <div class="auth-right reveal delay-100">
+    <div class="auth-right reveal">
         <div class="auth-form-wrap">
-            <a href="index.php" style="display:inline-flex;align-items:center;gap:0.5rem;color:#000;font-size:0.85rem;margin-bottom:2rem;transition:var(--transition);" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--gray)'">
+            <a href="index.php" style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--gray);font-size:0.85rem;margin-bottom:2.5rem;transition:var(--transition); text-decoration:none;">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </a>
 

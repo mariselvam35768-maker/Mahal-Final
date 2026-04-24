@@ -172,9 +172,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include '_sidebar.php'; ?>
     <div class="admin-main">
         <div class="admin-topbar">
-            <div style="display:flex; align-items:center; gap:0.75rem;">
-                <h2 style="font-weight:700; font-size:1.1rem; margin:0; color:var(--dark);">Dynamic Branding</h2>
-                <span style="font-size:0.78rem; color:var(--gray); margin-top:0.2rem;">Manage brand name and logo</span>
+            <div style="display:flex; align-items:center; gap:1rem;">
+                <button class="admin-menu-toggle" onclick="document.getElementById('adminSidebar').classList.add('open')" style="display:none; background:none; border:none; font-size:1.25rem; color:var(--dark); cursor:pointer;">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                    <h2 style="font-weight:700; font-size:1.1rem; margin:0; color:var(--dark);">Dynamic Branding</h2>
+                    <span style="font-size:0.78rem; color:var(--gray); margin-top:0.2rem;">Manage brand name and logo</span>
+                </div>
             </div>
         </div>
 
