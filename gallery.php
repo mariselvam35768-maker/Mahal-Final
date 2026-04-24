@@ -19,6 +19,7 @@ try {
     <link rel="stylesheet" href="assets/css/style.css?v=rose2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        body { padding-top: 185px; }
         .gallery-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -39,30 +40,30 @@ try {
         }
         .gallery-card {
             position: relative;
-            height: 280px;
-            border-radius: var(--radius-lg);
+            height: 320px;
+            border-radius: var(--radius-sm);
             overflow: hidden;
             cursor: pointer;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
-            border: 3px solid var(--primary-light);
+            border: 1px solid var(--border);
         }
         .gallery-card:hover { 
-            transform: scale(1.02) translateY(-5px); 
+            transform: translateY(-8px); 
             box-shadow: var(--shadow-lg); 
             border-color: var(--primary);
         }
-        .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .gallery-card:hover img { transform: scale(1.1); }
+        .gallery-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .gallery-card:hover img { transform: scale(1.08); }
         
         .gallery-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(136,14,79,0.7) 0%, transparent 60%);
-            display: flex; align-items: flex-end; padding: 1.5rem;
+            background: linear-gradient(to top, rgba(46,37,30,0.8) 0%, transparent 60%);
+            display: flex; align-items: flex-end; padding: 2rem;
             opacity: 0; transition: var(--transition);
         }
         .gallery-card:hover .gallery-overlay { opacity: 1; }
-        .gallery-title { color: white; font-weight: 700; font-size: 1rem; transform: translateY(10px); transition: var(--transition); }
+        .gallery-title { color: white; font-weight: 600; font-size: 1.1rem; font-family:'Playfair Display', serif; transform: translateY(15px); transition: var(--transition); }
         .gallery-card:hover .gallery-title { transform: translateY(0); }
 
         /* Lightbox Model */
@@ -113,50 +114,100 @@ try {
             to { opacity: 1; transform: translateY(0); }
         }
         .model-title { 
-            font-size: 1.5rem; 
+            font-size: 1.8rem; 
             font-weight: 700; 
-            margin-bottom: 0.5rem;
-            color: var(--primary-light);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            color: white;
+            font-family:'Playfair Display', serif;
         }
         .model-desc { 
             font-size: 1rem; 
-            line-height: 1.6; 
-            color: rgba(255,255,255,0.8);
+            line-height: 1.7; 
+            color: rgba(255,255,255,0.7);
         }
         .model-close { 
             position: absolute; 
-            top: -20px; 
-            right: -20px; 
+            top: -25px; 
+            right: -25px; 
             color: white; 
             font-size: 1.25rem; 
             cursor: pointer; 
             background: var(--primary); 
-            backdrop-filter: blur(5px);
             border-radius: 50%; 
-            width: 45px; 
-            height: 45px; 
+            width: 50px; 
+            height: 50px; 
             display: flex; 
             align-items: center; 
             justify-content: center;
             transition: var(--transition);
-            border: 3px solid rgba(255,255,255,0.8);
             z-index: 10005;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3), 0 0 0 5px rgba(233,30,99,0.1);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
         .model-close:hover {
-            background: var(--dark);
-            transform: rotate(90deg) scale(1.1);
-            color: white;
-            border-color: white;
+            background: var(--primary-deep);
+            transform: scale(1.1);
         }
         @media (max-width: 768px) {
-            #galleryModel { padding: 1.5rem; }
-            .model-img { max-height: 55vh; }
-            .model-title { font-size: 1.25rem; }
-            .model-desc { font-size: 0.9rem; }
+            #galleryModel { padding: 1rem; }
+            .model-img { max-height: 50vh; }
+            .model-info { padding: 1.25rem; }
+            .model-title { font-size: 1.2rem; }
+            .model-desc { font-size: 0.85rem; }
             .model-close { top: -15px; right: -15px; width: 40px; height: 40px; }
+        }
+
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .highlight-item {
+            background: white;
+            border-radius: var(--radius-sm);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .highlight-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .highlight-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-sm);
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .highlight-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .highlight-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        @media (max-width: 992px) {
+            .highlights-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -173,11 +224,13 @@ try {
 
 
     <section class="section">
-        <div class="container text-center" style="margin-bottom: 3rem;">
-            <div class="gallery-filter-wrap" style="display:inline-flex; background:rgba(233,30,99,0.05); padding:0.5rem; border-radius:var(--radius-full); gap:0.5rem;">
-                <button class="btn btn-primary" onclick="filterGallery('all')" id="btn-all">All Photos</button>
-                <button class="btn" onclick="filterGallery('room')" id="btn-room" style="color:var(--dark-2);">Rooms</button>
-                <button class="btn" onclick="filterGallery('mahal')" id="btn-mahal" style="color:var(--dark-2);">Mahal</button>
+        <div class="container text-center" style="margin-bottom: 4rem;">
+            <div class="section-label">Visual Tour</div>
+            <h2 class="section-heading" style="font-family:'Playfair Display', serif; margin-bottom:2rem;">Explore Our <span>Spaces</span></h2>
+            <div class="gallery-filter-wrap" style="display:inline-flex; background:var(--primary-light); padding:0.5rem; border-radius:var(--radius-sm); gap:0.5rem; border:1px solid var(--tan-soft);">
+                <button class="btn btn-primary" onclick="filterGallery('all')" id="btn-all">All Collections</button>
+                <button class="btn" onclick="filterGallery('room')" id="btn-room" style="color:var(--dark-2);">Stay & Rooms</button>
+                <button class="btn" onclick="filterGallery('mahal')" id="btn-mahal" style="color:var(--dark-2);">Grand Mahal</button>
             </div>
         </div>
 
@@ -212,39 +265,37 @@ try {
     <!-- Venue Highlights Section -->
     <section class="section" style="background: white; border-top: 1px solid var(--border);">
         <div class="container">
-            <div class="text-center" style="margin-bottom: 3rem;">
-                <div class="section-label"><i class="fas fa-star"></i> Venue Highlights</div>
-                <h2 class="section-heading">Why Choose <span>Sri Lakshmi Residency?</span></h2>
-                <p style="color:var(--gray);max-width:600px;margin:0 auto;">Beyond stunning venues, we offer premium amenities to make your stay and events perfect.</p>
+            <div class="text-center" style="margin-bottom: 4rem;">
+                <div class="section-label">The Experience</div>
+                <h2 class="section-heading" style="font-family:'Playfair Display', serif;">Why Our Venue <span>Stands Out</span></h2>
+                <p style="color:var(--gray);max-width:600px;margin:0 auto; font-size:1rem; line-height:1.7;">Experience a perfect blend of modern architecture and traditional hospitality.</p>
             </div>
 
-            <div class="highlights-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+            <div class="highlights-grid">
                 <?php
                 $milestones = [
-                    ['fas fa-bed',       '43 Air-Conditioned Rooms',    'With complimentary breakfast for all guests'],
-                    ['fas fa-utensils',  'Fully AC Dining Hall',         'Centrally air-conditioned and spacious dining area'],
-                    ['fas fa-users',     'Mahal for 300 Guests',         'Fully air-conditioned Mahal for grand celebrations'],
-                    ['fas fa-parking',   'Spacious Parking Facility',    'Ample parking for guests and visitors'],
-                    ['fas fa-wifi',      'Free Wi-Fi',                   'High-speed internet throughout the property'],
-                    ['fas fa-tint',      '24/7 Water Supply',            'Uninterrupted water supply round the clock'],
-                    ['fas fa-clock',     'Complimentary Breakfast',      'Available daily from 9:00 AM to 11:00 AM'],
-                    ['fas fa-hotel',     'Mini Hall for 100 Guests',    'Perfect for intimate gatherings and small functions'],
+                    ['fas fa-snowflake', 'Centrally Air-Conditioned', 'Full AC Mahal and Dining areas for maximum comfort.'],
+                    ['fas fa-bed', 'Premium Guest Stays', '43 elegantly designed rooms with all modern amenities.'],
+                    ['fas fa-utensils', 'Elegant Dining Hall', 'Spacious dining facility to host your grand feasts.'],
+                    ['fas fa-parking', 'Secure Parking', 'Dedicated parking space for your guests\' vehicles.'],
+                    ['fas fa-wifi', 'Seamless Connectivity', 'High-speed Wi-Fi access throughout the residency.'],
+                    ['fas fa-shield-check', '24/7 Security', 'Complete peace of mind with round-the-clock monitoring.'],
                 ];
                 foreach ($milestones as [$icon,$title,$desc]): ?>
-                    <div class="reveal" style="background:#f8fafc; border-radius:var(--radius-lg); padding:1.75rem; border:1px solid var(--border); display: flex; align-items: flex-start; gap: 1.25rem; transition: var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white';this.style.transform='translateY(-5px)';this.style.boxShadow='var(--shadow-md)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc';this.style.transform='translateY(0)';this.style.boxShadow='none'">
-                        <div style="width:52px; height:52px; border-radius:var(--radius); background:var(--primary-light); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:var(--transition);">
-                            <i class="<?php echo $icon; ?>" style="color:var(--primary); font-size:1.25rem;"></i>
+                    <div class="highlight-item reveal">
+                        <div class="highlight-icon">
+                            <i class="<?php echo $icon; ?>"></i>
                         </div>
-                        <div>
-                            <div style="font-weight:700; font-size:1rem; margin-bottom:0.4rem; color: var(--dark);"><?php echo $title; ?></div>
-                            <div style="font-size:0.85rem; color:var(--gray); line-height:1.6;"><?php echo $desc; ?></div>
+                        <div class="highlight-info">
+                            <h3 class="highlight-title"><?php echo $title; ?></h3>
+                            <p class="highlight-desc"><?php echo $desc; ?></p>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
             
-            <div class="text-center" style="margin-top: 3rem;">
-                <a href="about.php" class="btn btn-outline"><i class="fas fa-info-circle"></i> Learn More About Our Story</a>
+            <div class="text-center" style="margin-top: 4rem;">
+                <a href="about.php" class="btn btn-primary" style="padding: 1rem 2.5rem; border-radius: var(--radius-sm);">Explore Our Legacy</a>
             </div>
         </div>
     </section>

@@ -11,25 +11,23 @@ require_once 'includes/auth_functions.php';
     <link rel="stylesheet" href="assets/css/style.css?v=rose2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { padding-top: 75px; }
-        .team-card { background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 2rem; text-align: center; transition: var(--transition); }
-        .team-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-        .team-avatar { width: 80px; height: 80px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 2rem; color: white; font-family:'Poppins',sans-serif; font-weight: 800; }
-        .value-card { padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border); background: white; transition: var(--transition); }
-        .value-card:hover { box-shadow: var(--shadow-md); border-color: var(--primary); }
-        .milestone { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+        body { padding-top: 175px; }
+        .team-card { background: white; border-radius: var(--radius-sm); border: 1px solid var(--border); padding: 2.5rem; text-align: center; transition: var(--transition); }
+        .team-card:hover { box-shadow: var(--shadow-md); transform: translateY(-5px); border-color: var(--primary); }
+        .value-card { padding: 2.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: white; transition: var(--transition); }
+        .value-card:hover { box-shadow: var(--shadow-md); border-color: var(--primary); transform: translateY(-5px); }
+        .milestone { display: flex; align-items: center; gap: 1.5rem; padding: 1.5rem; background: white; border-radius: var(--radius-sm); border: 1px solid var(--border); }
         .milestone-icon { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-        .milestones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .milestones-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         .events-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
         .rooms-accommodation-grid {display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+        @media (max-width: 992px) {
+            .events-grid { grid-template-columns: 1fr 1fr; }
+        }
         @media (max-width: 768px) {
             .milestones-grid { grid-template-columns: 1fr; }
             .events-grid { grid-template-columns: 1fr; }
             .rooms-accommodation-grid { grid-template-columns: 1fr; }
-            .cta-banner { padding: 2.5rem 1.5rem !important; }
-            .cta-banner h2 { font-size: 1.3rem !important; }
-            .cta-banner p { font-size: 0.875rem !important; }
-            .cta-banner .btn-lg { padding: 0.65rem 1.25rem !important; font-size: 0.82rem !important; }
         }
     </style>
 </head>
@@ -49,36 +47,35 @@ require_once 'includes/auth_functions.php';
     <!-- WHO WE ARE -->
     <section class="section" style="background:white;">
         <div class="container">
-            <div class="grid-2" style="align-items:center;">
+            <div class="grid-2" style="align-items:center; gap:4rem;">
                 <div>
-                    <div class="section-label"><i class="fas fa-info-circle"></i> Who We Are</div>
-                    <h2 class="section-heading">Where Comfort Meets <span>Celebration</span></h2>
-                    <p style="color:var(--gray);line-height:1.8;margin-bottom:1.5rem;">
-                        We take pride in offering well-maintained air-conditioned rooms along with a fully air-conditioned Mahal suitable for all kinds of functions. Our focus is on cleanliness, comfort, and customer satisfaction.
+                    <div class="section-label">Our Legacy</div>
+                    <h2 class="section-heading" style="font-family:'Playfair Display', serif;">Crafting Timeless <span>Memories</span></h2>
+                    <p style="color:var(--gray);line-height:1.8;margin-bottom:2rem; font-size:1.1rem;">
+                        Since our inception, Sri Lakshmi Residency & Mahal has been a symbol of hospitality and elegance in Srivilliputhur. We combine modern luxury with traditional warmth to create a perfect setting for your life's most precious moments.
                     </p>
-                    <div style="margin: 2rem 0; text-align: center;">
-                        <img src="assets/images/wedding_illust.svg" alt="Wedding Celebration" style="width: 100%; max-width: 400px; filter: drop-shadow(0 15px 30px rgba(0,0,0,0.05));">
-                    </div>
-                    <div style="display:flex;gap:2rem;flex-wrap:wrap;">
-                        <?php foreach ([['50+','Premium Halls'],['500+','Happy Events'],['100%','Verified Venues'],['24/7','Support']] as [$n,$l]): ?>
-                            <div>
-                                <div style="font-size:1.75rem;font-weight:800;font-family:'Poppins',sans-serif;color:var(--primary);"><?php echo $n; ?></div>
-                                <div style="font-size:0.78rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.05em;"><?php echo $l; ?></div>
-                            </div>
-                        <?php endforeach; ?>
+                    <div style="display:flex;gap:3rem;flex-wrap:wrap; margin-top:3rem;">
+                        <div>
+                            <div style="font-size:2.5rem;font-weight:700;font-family:'Playfair Display',serif;color:var(--primary); line-height:1;">15+</div>
+                            <div style="font-size:0.8rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em; margin-top:0.5rem;">Years of Service</div>
+                        </div>
+                        <div>
+                            <div style="font-size:2.5rem;font-weight:700;font-family:'Playfair Display',serif;color:var(--primary); line-height:1;">1000+</div>
+                            <div style="font-size:0.8rem;color:var(--gray);text-transform:uppercase;letter-spacing:0.1em; margin-top:0.5rem;">Events Hosted</div>
+                        </div>
                     </div>
                 </div>
                 <div class="milestones-grid">
                     <?php
                     $milestones = [
-                        ['fas fa-bed',       '#e91e63','#ede9fe','43 Air-Conditioned Rooms',    'With complimentary breakfast for all guests'],
-                        ['fas fa-utensils',   '#e91e63','#ede9fe','Fully AC Dining Hall',         'Centrally air-conditioned and spacious dining area'],
-                        ['fas fa-users',      '#e91e63','#ede9fe','Mahal for 300 Guests',         'Fully air-conditioned Mahal for grand celebrations'],
-                        ['fas fa-parking',    '#e91e63','#ede9fe','Spacious Parking Facility',    'Ample parking for guests and visitors'],
-                        ['fas fa-wifi',       '#e91e63','#ede9fe','Free Wi-Fi',                   'High-speed internet throughout the property'],
-                        ['fas fa-tint',       '#e91e63','#ede9fe','24/7 Water Supply',            'Uninterrupted water supply round the clock'],
-                        ['fas fa-clock',      '#e91e63','#ede9fe','Complimentary Breakfast',    'Available daily from 9:00 AM to 11:00 AM'],
-                        ['fas fa-hotel',      '#e91e63','#ede9fe','Mini Hall for 100 Guests',    'Perfect for intimate gatherings and small functions'],
+                        ['fas fa-bed',       'var(--primary)','var(--primary-light)','43 Air-Conditioned Rooms',    'With complimentary breakfast for all guests'],
+                        ['fas fa-utensils',   'var(--primary)','var(--primary-light)','Fully AC Dining Hall',         'Centrally air-conditioned and spacious dining area'],
+                        ['fas fa-users',      'var(--primary)','var(--primary-light)','Mahal for 300 Guests',         'Fully air-conditioned Mahal for grand celebrations'],
+                        ['fas fa-parking',    'var(--primary)','var(--primary-light)','Spacious Parking Facility',    'Ample parking for guests and visitors'],
+                        ['fas fa-wifi',       'var(--primary)','var(--primary-light)','Free Wi-Fi',                   'High-speed internet throughout the property'],
+                        ['fas fa-tint',       'var(--primary)','var(--primary-light)','24/7 Water Supply',            'Uninterrupted water supply round the clock'],
+                        ['fas fa-clock',      'var(--primary)','var(--primary-light)','Complimentary Breakfast',    'Available daily from 9:00 AM to 11:00 AM'],
+                        ['fas fa-hotel',      'var(--primary)','var(--primary-light)','Mini Hall for 100 Guests',    'Perfect for intimate gatherings and small functions'],
                     ];
 
                     foreach ($milestones as [$icon,$col,$baccol,$title,$desc]): ?>
@@ -98,25 +95,25 @@ require_once 'includes/auth_functions.php';
     <!-- OUR VALUES -->
     <section class="section">
         <div class="container">
-            <div class="text-center" style="margin-bottom:3rem;">
-                <div class="section-label"><i class="fas fa-heart"></i> What We Stand For</div>
-                <h2 class="section-heading">Our Core <span>Values</span></h2>
+            <div class="text-center" style="margin-bottom:4rem;">
+                <div class="section-label">Our Philosophy</div>
+                <h2 class="section-heading" style="font-family:'Playfair Display', serif;">Our Core <span>Values</span></h2>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem;">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:2rem;">
                 <?php
                 $values = [
-                    ['fas fa-star','#e91e63','#ede9fe','Clean & Professional','We prioritize cleanliness, comfort, and professional management for all our guests.'],
-                    ['fas fa-location-arrow','#e91e63','#ede9fe','Prime Location','Located in the heart of Srivilliputhur, making us the ideal choice for stays and events.'],
-                    ['fas fa-handshake','#e91e63','#ede9fe','Customer First','Friendly service and warm hospitality are at the core of everything we do.'],
-                    ['fas fa-shield-alt','#e91e63','#ede9fe','Aesthetically Built','Modern architecture with premium interiors designed for elegance and convenience.'],
+                    ['fas fa-gem','Excellence','We strive for perfection in every detail, ensuring your event is nothing short of extraordinary.'],
+                    ['fas fa-hand-holding-heart','Hospitality','Warm, personalized service is at the heart of our residency, making every guest feel at home.'],
+                    ['fas fa-shield-check','Integrity','Transparent pricing and honest communication are the foundations of our relationship with you.'],
+                    ['fas fa-sparkles','Cleanliness','We maintain the highest standards of hygiene and maintenance across all our premises.'],
                 ];
-                foreach ($values as [$icon,$col,$baccol,$title,$desc]): ?>
+                foreach ($values as [$icon,$title,$desc]): ?>
                     <div class="value-card">
-                        <div style="width:56px;height:56px;border-radius:var(--radius);background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;">
-                            <i class="<?php echo $icon; ?>" style="color:var(--primary);font-size:1.3rem;"></i>
+                        <div style="width:60px;height:60px;border-radius:var(--radius-sm);background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin-bottom:1.5rem;">
+                            <i class="<?php echo $icon; ?>" style="color:var(--primary);font-size:1.5rem;"></i>
                         </div>
-                        <h4 style="margin-bottom:0.6rem;"><?php echo $title; ?></h4>
-                        <p style="color:var(--gray);font-size:0.875rem;line-height:1.7;"><?php echo $desc; ?></p>
+                        <h4 style="margin-bottom:1rem; font-family:'Playfair Display', serif; font-size:1.2rem;"><?php echo $title; ?></h4>
+                        <p style="color:var(--gray);font-size:0.95rem;line-height:1.7;"><?php echo $desc; ?></p>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -135,29 +132,29 @@ require_once 'includes/auth_functions.php';
             <div class="events-grid">
 
                 <div style="text-align:center;padding:2rem 1.5rem;background:#f8fafc;border-radius:var(--radius-lg);border:1px solid var(--border);transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc'">
-                    <div style="width:56px;height:56px;border-radius:50%;background:#fce7f3;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-                        <i class="fas fa-heart" style="color:#e91e63;font-size:1.3rem;"></i>
+                    <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                        <i class="fas fa-heart" style="color:var(--primary);font-size:1.3rem;"></i>
                     </div>
                     <h4 style="font-size:0.95rem;margin:0;">Weddings &amp; Receptions</h4>
                 </div>
 
                 <div style="text-align:center;padding:2rem 1.5rem;background:#f8fafc;border-radius:var(--radius-lg);border:1px solid var(--border);transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc'">
-                    <div style="width:56px;height:56px;border-radius:50%;background:#fce7f3;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-                        <i class="fas fa-ring" style="color:#e91e63;font-size:1.3rem;"></i>
+                    <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                        <i class="fas fa-ring" style="color:var(--primary);font-size:1.3rem;"></i>
                     </div>
                     <h4 style="font-size:0.95rem;margin:0;">Engagements</h4>
                 </div>
 
                 <div style="text-align:center;padding:2rem 1.5rem;background:#f8fafc;border-radius:var(--radius-lg);border:1px solid var(--border);transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc'">
-                    <div style="width:56px;height:56px;border-radius:50%;background:#fce7f3;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-                        <i class="fas fa-birthday-cake" style="color:#e91e63;font-size:1.3rem;"></i>
+                    <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                        <i class="fas fa-birthday-cake" style="color:var(--primary);font-size:1.3rem;"></i>
                     </div>
                     <h4 style="font-size:0.95rem;margin:0;">Birthday &amp; Family Functions</h4>
                 </div>
 
                 <div style="text-align:center;padding:2rem 1.5rem;background:#f8fafc;border-radius:var(--radius-lg);border:1px solid var(--border);transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc'">
-                    <div style="width:56px;height:56px;border-radius:50%;background:#fce7f3;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-                        <i class="fas fa-briefcase" style="color:#e91e63;font-size:1.3rem;"></i>
+                    <div style="width:56px;height:56px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+                        <i class="fas fa-briefcase" style="color:var(--primary);font-size:1.3rem;"></i>
                     </div>
                     <h4 style="font-size:0.95rem;margin:0;">Corporate Meetings</h4>
                 </div>
@@ -174,24 +171,24 @@ require_once 'includes/auth_functions.php';
             <div class="rooms-accommodation-grid">
 
                 <div style="text-align:center;padding:2.5rem 2rem;background:#f8fafc;border-radius:var(--radius-lg);border:1px solid var(--border);transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc'">
-                    <div style="width:60px;height:60px;border-radius:50%;background:#ede9fe;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                        <i class="fas fa-bed" style="color:#e91e63;font-size:1.4rem;"></i>
+                    <div style="width:60px;height:60px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+                        <i class="fas fa-bed" style="color:var(--primary);font-size:1.4rem;"></i>
                     </div>
                     <h4 style="margin-bottom:0.5rem;font-size:1rem;">Deluxe Room – AC</h4>
                     <p style="color:var(--gray);font-size:0.85rem;line-height:1.7;margin:0;">Comfortable stay with essential amenities</p>
                 </div>
 
                 <div style="text-align:center;padding:2.5rem 2rem;background:#f8fafc;border-radius:var(--radius-lg);border:1px solid var(--border);transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc'">
-                    <div style="width:60px;height:60px;border-radius:50%;background:#ede9fe;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                        <i class="fas fa-star" style="color:#e91e63;font-size:1.4rem;"></i>
+                    <div style="width:60px;height:60px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+                        <i class="fas fa-star" style="color:var(--primary);font-size:1.4rem;"></i>
                     </div>
                     <h4 style="margin-bottom:0.5rem;font-size:1rem;">Super Deluxe Room – AC</h4>
                     <p style="color:var(--gray);font-size:0.85rem;line-height:1.7;margin:0;">Enhanced comfort with premium interiors</p>
                 </div>
 
                 <div style="text-align:center;padding:2.5rem 2rem;background:#f8fafc;border-radius:var(--radius-lg);border:1px solid var(--border);transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary)';this.style.background='white'" onmouseout="this.style.borderColor='var(--border)';this.style.background='#f8fafc'">
-                    <div style="width:60px;height:60px;border-radius:50%;background:#ede9fe;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                        <i class="fas fa-crown" style="color:#e91e63;font-size:1.4rem;"></i>
+                    <div style="width:60px;height:60px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
+                        <i class="fas fa-crown" style="color:var(--primary);font-size:1.4rem;"></i>
                     </div>
                     <h4 style="margin-bottom:0.5rem;font-size:1rem;">VIP Room – AC</h4>
                     <p style="color:var(--gray);font-size:0.85rem;line-height:1.7;margin:0;">Spacious luxury room for a premium stay</p>
@@ -204,13 +201,13 @@ require_once 'includes/auth_functions.php';
     <!-- CTA -->
     <section class="section">
         <div class="container">
-            <div class="cta-banner" style="background:var(--gradient-primary);border-radius:var(--radius-xl);padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;">
+            <div class="cta-banner" style="background:var(--primary-deep);border-radius:var(--radius-md);padding:6rem 3rem;text-align:center;position:relative;overflow:hidden;">
                 <div style="position:relative;z-index:1;">
-                    <h2 style="color:white;font-size:2.25rem;margin-bottom:0.75rem;">Ready to Book Your Venue?</h2>
-                    <p style="color:rgba(255,255,255,0.8);margin-bottom:2rem;font-size:1.05rem;">Browse our collection of verified halls and make your event unforgettable.</p>
-                    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                        <a href="halls.php" class="btn btn-white btn-lg"><i class="fas fa-building"></i> Browse Halls</a>
-                        <a href="contact.php" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.3);"><i class="fas fa-phone"></i> Contact Us</a>
+                    <h2 style="color:white;font-size:2.5rem;margin-bottom:1rem; font-family:'Playfair Display', serif;">Join Our Journey</h2>
+                    <p style="color:rgba(255,255,255,0.6);margin-bottom:3rem;font-size:1.1rem; max-width:600px; margin-left:auto; margin-right:auto;">Experience the perfect blend of tradition and modern luxury for your next event.</p>
+                    <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+                        <a href="halls.php" class="btn btn-primary btn-lg">Browse Venues</a>
+                        <a href="contact.php" class="btn btn-outline btn-lg" style="border-color:white; color:white !important; background:transparent;">Talk to Us</a>
                     </div>
                 </div>
             </div>

@@ -53,79 +53,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="assets/css/style.css?v=rose2">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+    <style>
         body {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('assets/images/halls/Banner-2.webp') no-repeat center center/cover;
+            background: linear-gradient(rgba(46,37,30,0.7), rgba(46,37,30,0.7)), url('assets/images/halls/Banner-2.webp') no-repeat center center/cover;
             min-height: 100vh;
             display: flex;
+            font-family: 'Inter', sans-serif;
         }
-
-        .auth-left {
-            display: none;
-        }
-
         .auth-right {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
-            overflow-y: auto;
+            padding: 2rem;
         }
-
         .auth-form-wrap {
             width: 100%;
-            max-width: 650px;
-            background: rgba(255, 255, 255, 0.6);
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            max-width: 680px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         }
-
+        h1 { font-family: 'Playfair Display', serif; font-weight: 700; color: var(--dark); }
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
         }
-
         .form-group {
-            margin-bottom: 1rem !important;
+            margin-bottom: 1.5rem !important;
         }
-
         .form-group label {
-            margin-bottom: 0.35rem !important;
-            font-size: 0.85rem !important;
-        }
-
-        .form-control {
-            padding: 0.7rem 1rem 0.7rem 2.8rem !important;
+            margin-bottom: 0.5rem !important;
+            font-weight: 600;
+            color: var(--dark-2);
             font-size: 0.9rem !important;
-            min-height: auto !important;
         }
-
-        @media(max-width:1150px) {
-            .auth-right {
-                width: 100%;
-            }
+        @media(max-width:768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .auth-form-wrap { padding: 2.5rem 1.5rem; }
         }
-
-        @media(max-width:600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .auth-right {
-                padding: 1rem;
-            }
-
-            .auth-form-wrap {
-                max-width: 100%;
-                padding: 1.5rem !important;
-            }
-
-            h1 {
-                font-size: 1.5rem !important;
-            }
-        }
+    </style>
 
         .strength-bar {
             height: 4px;
@@ -183,14 +152,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!-- RIGHT -->
-    <div class="auth-right reveal delay-100">
+    <div class="auth-right reveal">
         <div class="auth-form-wrap">
-            <a href="index.php" style="display:inline-flex;align-items:center;gap:0.5rem;color:#000;font-size:0.85rem;margin-bottom:1.2rem;">
+            <a href="index.php" style="display:inline-flex;align-items:center;gap:0.5rem;color:var(--gray);font-size:0.85rem;margin-bottom:2.5rem; text-decoration:none;">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </a>
 
-            <h1 style="font-size:1.75rem;margin-bottom:0.2rem;">Create Account</h1>
-            <p style="color:#000;margin-bottom:1.2rem;font-size:0.9rem;">Register to book your perfect hall.</p>
+            <h1 style="font-size:2rem;margin-bottom:0.5rem;">Join Our Family</h1>
+            <p style="color:var(--gray);margin-bottom:2.5rem;font-size:1rem;">Experience premium hospitality and seamless bookings.</p>
 
             <?php if ($error): ?>
                 <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></div>

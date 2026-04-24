@@ -188,17 +188,17 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { background: var(--bg); }
-        .room-admin-card { display: grid; grid-template-columns: 100px 1fr auto; gap: 1.5rem; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--border); transition: 0.3s; background: white; }
-        .room-admin-card:hover { background: #fffcfd; }
+        .room-admin-card { display: grid; grid-template-columns: 100px 1fr auto; gap: 1rem; align-items: center; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); transition: 0.3s; background: white; }
+        .room-admin-card:hover { background: var(--bg); }
         .room-admin-card:last-child { border-bottom: none; }
         .room-thumb { width: 100px; height: 75px; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
         .inv-badge { padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.72rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.35rem; }
-        .inv-total { background: #f1f5f9; color: #475569; }
-        .inv-booked { background: #fff1f2; color: #e11d48; }
-        .inv-avail { background: #f0fdf4; color: #16a34a; }
+        .inv-total { background: var(--primary-light); color: var(--primary); }
+        .inv-booked { background: #F5E6E6; color: var(--danger); }
+        .inv-avail { background: #E2EFE7; color: var(--success); }
         .stat-pill { padding: 0.4rem 0.9rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 700; border: 1.5px solid var(--border); color: var(--gray); text-decoration: none; transition: 0.2s; white-space: nowrap; }
         .stat-pill:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-        .stat-pill.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25); }
+        .stat-pill.active { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 4px 12px rgba(195, 128, 91, 0.25); }
         .search-container { position: relative; width: 100%; max-width: 350px; }
         .search-container i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gray-light); }
         .search-container input { padding-left: 2.5rem; border-radius: var(--radius-full); }
@@ -221,9 +221,14 @@ try {
                 <?php else: ?>
                     <!-- Inventory List Topbar -->
                     <div class="admin-topbar">
-                        <div style="display:flex; align-items:center; gap:0.75rem;">
-                            <h2 style="font-weight:700; font-size:1.1rem; margin:0; color:var(--dark);">Room Inventory</h2>
-                            <span style="font-size:0.78rem; color:var(--gray); margin-top:0.2rem;"><?php echo count($rooms); ?> Variants Found</span>
+                        <div style="display:flex; align-items:center; gap:1rem;">
+                            <button class="admin-menu-toggle" onclick="document.getElementById('adminSidebar').classList.add('open')" style="display:none; background:none; border:none; font-size:1.25rem; color:var(--dark); cursor:pointer;">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <div style="display:flex; align-items:center; gap:0.75rem;">
+                                <h2 style="font-weight:700; font-size:1.1rem; margin:0; color:var(--dark);">Room Inventory</h2>
+                                <span style="font-size:0.78rem; color:var(--gray); margin-top:0.2rem;"><?php echo count($rooms); ?> Variants Found</span>
+                            </div>
                         </div>
                         
                         <!-- Search Component -->

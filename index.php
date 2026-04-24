@@ -4,7 +4,7 @@ require_once 'includes/auth_functions.php';
 // Fetch featured halls for homepage showcase
 $featured_halls = [];
 try {
-    $featured_stmt = $pdo->query("SELECT * FROM halls ORDER BY created_at DESC LIMIT 6");
+    $featured_stmt = $pdo->query("SELECT * FROM halls ORDER BY created_at DESC LIMIT 3");
     $featured_halls = $featured_stmt->fetchAll();
 } catch (Exception $e) {}
 
@@ -38,18 +38,7 @@ try {
         return 'assets/images/banners/' . $item;
     }, $home_banner_items);
 
-    // Calculate slider animation timing
     $image_count = count($home_banner_paths);
-    $display_time = 3; // seconds per image
-    $transition_time = 0.2; // seconds for quick slide transition (reduced for faster movement)
-    $total_duration = ($image_count * $display_time) + ($image_count * $transition_time);
-    $display_percentage = ($display_time / $total_duration) * 100;
-    $transition_percentage = ($transition_time / $total_duration) * 100;
-    $slide_percentage = 100 / $image_count;
-
-    // Fetch Gallery Preview (Room images only)
-    $gallery_stmt = $pdo->query("SELECT * FROM gallery WHERE category = 'room' ORDER BY created_at DESC LIMIT 8");
-    $gallery_preview = $gallery_stmt->fetchAll();
 } catch (Exception $e) {}
 ?>
 <!DOCTYPE html>
@@ -57,272 +46,391 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $brand_name; ?> | Find & Book Your Dream Venue</title>
-    <meta name="description" content="Book premium marriage halls and event venues online. Simple, fast, and reliable hall booking system.">
-    <link rel="stylesheet" href="assets/css/style.css?v=rose2">
+    <title><?php echo $brand_name; ?> | Premium Wedding & Event Venues</title>
+    <meta name="description" content="Experience elegance and luxury at Sri Lakshmi Residency & Mahal. Book premium marriage halls and stay rooms in Srivilliputhur.">
+    <link rel="stylesheet" href="assets/css/style.css?v=premium1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { padding-top: 0; }
-        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
-        .hero-content { position: relative; z-index: 3; padding: 15vh 5% 0; width: 100%; }
-        .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.9); padding: 0.4rem 1rem; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; margin-bottom: 1.5rem; backdrop-filter: blur(4px); }
-        .hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); color: white; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 1.5rem; }
-        .hero h1 span { background: linear-gradient(120deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero p { font-size: 1.15rem; color: rgba(255,255,255,0.75); max-width: 520px; margin-bottom: 2.5rem; line-height: 1.7; animation: fadeInUp 0.8s ease backwards; animation-delay: 0.2s; }
-        .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; padding-top: 3rem; border-top: 1px solid rgba(255,255,255,0.1); flex-wrap: wrap; }
-        .hero-stat-value { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; color: white; }
-        .hero-stat-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; }
-
-        /* Hero Background Slider */
-        .hero-slider { position: absolute; inset: 0; z-index: 1; }
-        .hero-slides { 
-            display: flex; 
-            width: <?php echo $image_count * 100; ?>%; 
-            animation: slideShow <?php echo $total_duration; ?>s infinite; 
-        }
-        .hero-slide { 
-            flex: 0 0 <?php echo $slide_percentage; ?>%; 
-            height: 100%; 
-        }
-        .hero-slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
-        @keyframes slideShow {
-            <?php
-            $keyframes = '';
-            $current_time = 0;
-            
-            for ($i = 0; $i < $image_count; $i++) {
-                $start_pos = $i * $slide_percentage;
-                
-                // Display period
-                $keyframes .= $current_time . '% { transform: translateX(-' . $start_pos . '%); }' . "\n            ";
-                $current_time += $display_percentage;
-                
-                // Transition period (if not the last image)
-                if ($i < $image_count - 1) {
-                    $next_pos = ($i + 1) * $slide_percentage;
-                    $keyframes .= $current_time . '% { transform: translateX(-' . $next_pos . '%); }' . "\n            ";
-                    $current_time += $transition_percentage;
-                }
-            }
-            
-            // Loop back to first image
-            $keyframes .= '100% { transform: translateX(0); }';
-            echo $keyframes;
-            ?>
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            background: var(--gradient-hero);
+            position: relative;
+            color: white;
+            padding-top: 215px;
+            padding-bottom: 80px;
         }
 
-        @media(max-width:992px) {
-            .hero { min-height: 80vh; padding-top: 80px; }
-            .hero-content { padding: 4rem 1.5rem; text-align: center; flex-direction: column; }
-            .hero-illust-area { order: -1; margin-bottom: 2rem; }
-            .hero-illust-area img { max-width: 300px !important; }
-            .hero h1 { font-size: 3rem; margin: 0 auto 1.5rem; }
-            .hero p { margin-left: auto; margin-right: auto; }
-            .hero-ctas { justify-content: center; }
-            .hero-stats { justify-content: center; gap: 2rem; margin-top: 3rem; }
-        }
-        @media(max-width:576px) {
-            .hero h1 { font-size: 2.25rem; }
-            .hero-stats { gap: 1.5rem; }
-            .hero-stat-value { font-size: 1.5rem; }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
         }
 
-        .banner-slider-wrapper { position: relative; width: 100%; overflow: hidden; margin-top: 2rem; margin-bottom: 3rem; }
-        .banner-slider { position: relative; width: 100%; height: 70vh; min-height: 400px; overflow: hidden; }
-        .banner-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; }
-        .banner-slide.active { opacity: 1; }
-        .banner-slide img { width: 100%; height: 100%; object-fit: cover; }
-        .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 2.2rem; height: 2.2rem; background: rgba(0,0,0,0.5); border: 0; color: white; border-radius: 999px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 5; }
-        .slider-prev { left: 1rem; }
-        .slider-next { right: 1rem; }
-        @media (max-width: 768px) { .banner-slider { height: 50vh; min-height: 300px; } .slider-arrow { width: 1.8rem; height: 1.8rem; font-size: 0.8rem; left: 0.5rem; right: 0.5rem; } }
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
 
-        /* Features */
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+        .hero-content {
+            position: relative;
+            z-index: 5;
+            max-width: 800px;
+        }
 
-        /* Specialties */
-        .specialty-card { display: flex; align-items: flex-start; gap: 1.25rem; padding: 1.5rem; background: white; border-radius: var(--radius-lg); border: 1px solid var(--border); transition: var(--transition); }
-        .specialty-card:hover { box-shadow: var(--shadow-md); border-color: var(--primary); }
-        .specialty-card .s-icon { width: 50px; height: 50px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; flex-shrink: 0; }
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
 
-        /* Services 3-col grid — responsive */
-        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease both;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .stats-section {
+            background: white;
+            padding: 4rem 0;
+        }
+
+        .stats-grid {
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
+            max-width: 1100px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 3rem 2rem;
+            position: relative;
+            z-index: 10;
+            border: 1px solid var(--border);
+        }
+
+        .stat-item {
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
         @media (max-width: 768px) {
-            .services-grid { grid-template-columns: 1fr; }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+                padding: 2rem 1.5rem;
+                width: 95%;
+            }
+            .stat-item:nth-child(2) {
+                border-right: none;
+            }
+            .hero {
+                padding-bottom: 100px;
+                text-align: center;
+            }
+            .hero-btns {
+                justify-content: center;
+            }
+            .hero-content {
+                margin: 0 auto;
+            }
         }
 
-        /* How it works */
-        .step-connector { width: 1px; height: 40px; background: var(--border); margin: 0 auto; }
+        /* Features Section */
+        .features-section {
+            padding: 8rem 0 8rem;
+        }
 
-        /* CTA Banner */
-        .cta-banner { background: var(--gradient-primary); border-radius: var(--radius-xl); padding: 4rem 3rem; color: white; text-align: center; position: relative; overflow: hidden; }
-        .cta-banner::before { content: ''; position: absolute; top: -50%; left: -20%; width: 300px; height: 300px; background: rgba(255,255,255,0.05); border-radius: 50%; }
-        .cta-banner h2 { color: white; font-size: 2.25rem; margin-bottom: 1rem; }
-        .cta-banner p { color: rgba(255,255,255,0.8); margin-bottom: 2rem; font-size: 1.05rem; }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 992px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Booking Steps */
+        .steps-section {
+            background: var(--primary-deep);
+            color: white;
+            padding: 8rem 0;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            margin-top: 5rem;
+        }
+
+        .step-card {
+            background: rgba(255,255,255,0.03);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            background: rgba(255,255,255,0.06);
+            transform: translateY(-5px);
+        }
+
+        .step-num {
+            display: inline-flex;
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(195, 128, 91, 0.4);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .step-card h3 {
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-card p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
     </style>
 </head>
 <body>
-    <!-- SHARED NAVBAR -->
     <?php include 'includes/navbar.php'; ?>
 
-    <!-- HERO -->
+    <!-- HERO SECTION -->
     <section class="hero">
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-
-        <!-- Hero Background Slider -->
-        <div class="hero-slider">
-            <div class="hero-slides">
-                <?php foreach ($home_banner_paths as $banner_path): ?>
-                    <div class="hero-slide">
-                        <img src="<?php echo htmlspecialchars($banner_path); ?>" alt="Beautiful Hall">
-                    </div>
-                <?php endforeach; ?>
-            </div>
+        <div class="hero-bg">
+            <img src="<?php echo htmlspecialchars($home_banner_paths[0]); ?>" alt="Grand Mahal">
         </div>
-
-        <div class="hero-content container reveal">
-            <h1>Find & Book Your <span>Perfect Event</span> Venue</h1>
-            <p>Sri Lakshmi Residency & Mahal - Where Comfort Meets Celebration. Experience elegance, convenience, and warm hospitality in the heart of Srivilliputhur.</p>
-            <div class="hero-ctas">
-                <a href="halls.php" class="btn btn-primary btn-lg">
-                    <i class="fas fa-search"></i> Find Your Hall
-                </a>
-                <a href="#how-it-works" class="btn btn-white btn-lg">
-                    <i class="fas fa-heart"></i> Why Us
-                </a>
-            </div>
-
-            <div class="hero-stats glass-card stagger-children" style="margin-top: 4rem; padding: 2rem;">
-                <div>
-                    <div class="hero-stat-value"><?php echo $total_halls_count; ?>+</div>
-                    <div class="hero-stat-label">Premium Halls</div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">
+                    <span>Exclusive Event Spaces</span>
                 </div>
-                <div>
-                    <div class="hero-stat-value"><?php echo $total_bookings_count; ?>+</div>
-                    <div class="hero-stat-label">Events Hosted</div>
-                </div>
-                <div>
-                    <div class="hero-stat-value">100%</div>
-                    <div class="hero-stat-label">Verified Venues</div>
-                </div>
-                <div>
-                    <div class="hero-stat-value">24/7</div>
-                    <div class="hero-stat-label">Customer Support</div>
+                <h1>Where Every Moment Becomes a <span>Masterpiece</span></h1>
+                <p>Discover the finest venues in Srivilliputhur for your weddings, celebrations, and premium stays. Elegance redefined for your special day.</p>
+                <div class="hero-btns">
+                    <a href="halls.php" class="btn btn-primary btn-lg">Explore Venues</a>
+                    <a href="about.php" class="btn btn-outline btn-lg" style="border-color:white; color:white !important; background: transparent;">Our Story</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WHY CHOOSE US -->
-    <section class="section" id="why-us" style="background:#f8fafc;">
+    <!-- Stats Bar Section -->
+    <section class="stats-section">
+        <div class="stats-grid stagger-children">
+            <div class="stat-item reveal">
+                <div class="stat-number"><?php echo $total_halls_count; ?>+</div>
+                <div class="stat-label">Venues</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number"><?php echo $total_bookings_count; ?>+</div>
+                <div class="stat-label">Events Hosted</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">AC Facilities</div>
+            </div>
+            <div class="stat-item reveal" style="border:none;">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features-section">
         <div class="container">
-            <div class="grid-2" style="align-items:center;">
-                <div class="reveal">
-                    <div class="section-label"><i class="fas fa-check-circle"></i> Why Choose Us</div>
-                    <h2 class="section-heading">Premium Features for <span>Your Special Day</span></h2>
-                    <ul style="list-style:none;padding:0;margin:1.5rem 0 0;display:flex;flex-direction:column;gap:1rem;">
-                        <?php foreach ([
-                            ['fa-map-marker-alt', 'Prime location in Srivilliputhur'],
-                            ['fa-snowflake',      'Clean, Premium Air-Conditioned Facilities'],
-                            ['fa-glass-cheers',   'Ideal For Stay as Well as Celebrations'],
-                            ['fa-hands-helping',  'Friendly Service and Professional Management'],
-                        ] as [$icon, $text]): ?>
-                            <li style="display:flex;align-items:center;gap:1rem;">
-                                <div style="width:40px;height:40px;background:var(--primary-light);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;">
-                                    <i class="fas <?php echo $icon; ?>"></i>
-                                </div>
-                                <span style="font-size:0.95rem;font-weight:600;color:var(--dark-2);"><?php echo $text; ?></span>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
+            <div class="text-center reveal">
+                <div class="section-label">Luxury Amenities</div>
+                <h2 class="section-heading">Designed for <span>Excellence</span></h2>
+                <p class="section-sub" style="margin: 0 auto;">We offer more than just a space; we provide a full-service experience tailored to your needs.</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item reveal delay-100">
+                    <div class="feature-icon"><i class="fas fa-snowflake"></i></div>
+                    <h3>Fully Air-Conditioned</h3>
+                    <p>Both our residency rooms and the grand mahal are equipped with high-end climate control for your comfort.</p>
                 </div>
-                <div style="text-align:center;" class="reveal">
-                    <img src="assets/images/wedding_illust.svg" alt="Why Choose Us" style="width:100%;max-width:450px;filter:drop-shadow(0 20px 30px rgba(0,0,0,0.05));">
+                <div class="feature-item reveal delay-200">
+                    <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Catering Options</h3>
+                    <p>Choose our premium catering services or bring your own preferred team. We accommodate your choice.</p>
+                </div>
+                <div class="feature-item reveal delay-300">
+                    <div class="feature-icon"><i class="fas fa-car"></i></div>
+                    <h3>Ample Parking</h3>
+                    <p>Generous parking space for your guests, ensuring a hassle-free arrival for even the largest gatherings.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- WELCOME -->
-    <section class="section" style="background:white;padding:1.5rem 0;">
+    <!-- HOW IT WORKS (STEPS) -->
+    <section class="steps-section">
         <div class="container">
-            <div class="text-center reveal" style="max-width:720px;margin:0 auto;">
-                <div class="section-label">WELCOME !</div>
-                <p style="color:var(--gray);line-height:1.8;font-size:1.05rem;font-weight:500;margin-top:1rem;">
-                    Sri Lakshmi Residency &amp; Mahal Offers a Premium Experience For Both Comfortable Stays and Grand Celebrations. Located in the Heart of Srivilliputhur, our Property is Designed to Provide Elegance, Convenience, and Warm Hospitality For Gamilies, Guests, and Event Hosts.
-                </p>
+            <div class="text-center reveal">
+                <h2 class="section-heading" style="color:white;">Your Journey to <span>Celebration</span></h2>
+                <p class="section-sub" style="margin: 0 auto; color: rgba(255,255,255,0.6);">A seamless process to secure your perfect date.</p>
             </div>
-        </div>
-    </section>
 
-    <!-- HOW IT WORKS -->
-    <section class="section" id="how-it-works" style="background:white;">
-        <div class="container">
-            <div class="text-center reveal" style="margin-bottom:4rem;">
-                <div class="section-label"><i class="fas fa-route"></i> Simple Process</div>
-                <h2 class="section-heading">Book in <span>3 Easy Steps</span></h2>
-                <p class="section-sub" style="margin:0 auto;">From search to confirmation in just minutes. No hidden fees, no complications.</p>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;position:relative;">
-                <?php
-                $steps = [
-                    ['icon' => 'fas fa-search', 'step' => '01', 'title' => 'Browse & Filter', 'desc' => 'Search Halls by Location, Capacity, and Date. View Detailed Photos and Amenities.', 'color' => 'var(--primary)'],
-                    ['icon' => 'fas fa-calendar-check', 'step' => '02', 'title' => 'Pick Your Slot', 'desc' => 'Choose Your Event Date and Time Slot   Full Day, Morning, or Evening Sessions.', 'color' => 'var(--secondary)'],
-                    ['icon' => 'fas fa-check-circle', 'step' => '03', 'title' => 'Confirm & Celebrate', 'desc' => 'Submit Booking with Advance Payment. Get Instant Confirmation and Enjoy Your Event!', 'color' => 'var(--secondary)'],
-                ];
-                foreach ($steps as $s): ?>
-                    <div class="feature-card text-center">
-                        <div style="width:70px;height:70px;border-radius:50%;background:<?php echo $s['color']; ?>15;border:2px solid <?php echo $s['color']; ?>30;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
-                            <i class="<?php echo $s['icon']; ?>" style="font-size:1.6rem;color:<?php echo $s['color']; ?>;"></i>
-                        </div>
-                        <div style="font-size:0.7rem;font-weight:800;color:<?php echo $s['color']; ?>;letter-spacing:0.1em;margin-bottom:0.5rem;">STEP <?php echo $s['step']; ?></div>
-                        <h4 style="margin-bottom:0.5rem;"><?php echo $s['title']; ?></h4>
-                        <p style="color:var(--gray);font-size:0.875rem;line-height:1.6;"><?php echo $s['desc']; ?></p>
-                    </div>
-                <?php endforeach; ?>
+            <div class="steps-grid">
+                <div class="step-card reveal">
+                    <div class="step-num">01</div>
+                    <h3>Find Your Space</h3>
+                    <p>Browse through our collection of premium halls and luxury rooms based on your event capacity.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">02</div>
+                    <h3>Pick Your Date</h3>
+                    <p>Check real-time availability and select the date that fits your special occasion.</p>
+                </div>
+                <div class="step-card reveal">
+                    <div class="step-num">03</div>
+                    <h3>Secure Booking</h3>
+                    <p>Confirm your booking with a simple advance payment and receive instant confirmation.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- FEATURED HALLS -->
     <?php if (!empty($featured_halls)): ?>
-    <section class="section" id="halls">
+    <section class="section" id="featured-halls">
         <div class="container">
-            <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;flex-wrap:wrap;gap:1rem;">
                 <div class="reveal">
-                    <div class="section-label"><i class="fas fa-building"></i> Our Collection</div>
-                    <h2 class="section-heading">Featured <span>Halls & Venues</span></h2>
+                    <div class="section-label">Our Venues</div>
+                    <h2 class="section-heading">Featured <span>Spaces</span></h2>
                 </div>
-                <?php if(count($featured_halls) > 3): ?>
-                    <a href="halls.php" class="btn btn-outline reveal">View All Halls <i class="fas fa-arrow-right"></i></a>
-                <?php endif; ?>
+                <a href="halls.php" class="btn btn-outline reveal">View All Halls <i class="fas fa-arrow-right"></i></a>
             </div>
-            <div class="halls-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2rem;">
+
+            <div class="halls-grid">
                 <?php foreach ($featured_halls as $hall): ?>
-                    <div class="hall-card animate-fade-in">
+                    <div class="hall-card reveal">
                         <div class="hall-card-img">
                             <?php if ($hall['main_image']): ?>
                                 <img src="assets/images/halls/<?php echo htmlspecialchars($hall['main_image']); ?>" alt="<?php echo htmlspecialchars($hall['name']); ?>">
                             <?php else: ?>
-                                <div style="width:100%;height:100%;background:var(--gradient-hero);display:flex;align-items:center;justify-content:center;">
-                                    <i class="fas fa-building-columns" style="font-size:3rem;color:rgba(255,255,255,0.3);"></i>
+                                <div style="width:100%;height:100%;background:var(--primary-deep);display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-building" style="font-size:3rem;color:rgba(255,255,255,0.1);"></i>
                                 </div>
                             <?php endif; ?>
                             <div class="hall-price">Rs. <?php echo number_format($hall['price_per_day']); ?>/day</div>
-                            <div class="hall-badge">
-                                <span class="badge badge-success"><i class="fas fa-circle" style="font-size:0.5rem;"></i> Available</span>
-                            </div>
                         </div>
                         <div class="hall-card-body">
                             <h3 class="hall-card-title"><?php echo htmlspecialchars($hall['name']); ?></h3>
                             <div class="hall-card-meta">
-                                <span><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($hall['location']); ?></span>
                                 <span><i class="fas fa-users"></i> <?php echo number_format($hall['capacity']); ?> Guests</span>
+                                <span><i class="fas fa-snowflake"></i> Fully AC</span>
                             </div>
+                            <p><?php echo htmlspecialchars(substr($hall['description'], 0, 100)) . '...'; ?></p>
                             <a href="halls.php?id=<?php echo $hall['id']; ?>" class="btn btn-primary" style="width:100%;justify-content:center;">
-                                View Details <i class="fas fa-arrow-right"></i>
+                                View Details
                             </a>
                         </div>
                     </div>
@@ -332,100 +440,53 @@ try {
     </section>
     <?php endif; ?>
 
-    <!-- SPECIALTIES / FEATURES -->
-    <section class="section" id="features" style="background:white;">
+    <!-- GALLERY TEASER -->
+    <section class="section" style="background: var(--bg);">
         <div class="container">
-            <div class="text-center reveal" style="margin-bottom:4rem;">
-                <div class="section-label"><i class="fas fa-sparkles"></i> Why Sri Lakshmi Residency &amp; Mahal</div>
-                <h2 class="section-heading">Our <span>Services &amp; Facilities</span></h2>
-            </div>
-            <div class="services-grid">
-
-                <!-- Card 1: Mahal & Event Services -->
-                <div class="specialty-card reveal" style="flex-direction:column;align-items:flex-start;padding:2.5rem 2rem;min-height:320px;">
-                    <div class="s-icon" style="background:#ede9fe;color:#e91e63;margin-bottom:1.25rem;">
-                        <i class="fas fa-building-columns"></i>
-                    </div>
-                    <h4 style="margin-bottom:1rem;font-size:1.05rem;">Mahal &amp; Event Services</h4>
-                    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.7rem;">
-                        <li style="color:var(--gray);font-size:0.88rem;"><i class="fas fa-check-circle" style="color:#e91e63;margin-right:0.5rem;"></i>Weddings &amp; Receptions</li>
-                        <li style="color:var(--gray);font-size:0.88rem;"><i class="fas fa-check-circle" style="color:#e91e63;margin-right:0.5rem;"></i>Engagements</li>
-                        <li style="color:var(--gray);font-size:0.88rem;"><i class="fas fa-check-circle" style="color:#e91e63;margin-right:0.5rem;"></i>Birthday &amp; Family Functions</li>
-                        <li style="color:var(--gray);font-size:0.88rem;"><i class="fas fa-check-circle" style="color:#e91e63;margin-right:0.5rem;"></i>Corporate Meetings</li>
-                    </ul>
-                </div>
-
-                <!-- Card 2: Decoration -->
-                <div class="specialty-card reveal" style="flex-direction:column;align-items:flex-start;padding:2.5rem 2rem;min-height:320px;">
-                    <div class="s-icon" style="background:#ede9fe;color:#e91e63;margin-bottom:1.25rem;">
-                        <i class="fas fa-wand-magic-sparkles"></i>
-                    </div>
-                    <h4 style="margin-bottom:1rem;font-size:1.05rem;">Decoration</h4>
-                    <p style="color:var(--gray);font-size:0.88rem;line-height:1.8;margin:0;">Mahal decoration can be Arranged as per Customer Requirement.</p>
-                </div>
-
-                <!-- Card 3: Food Arrangements -->
-                <div class="specialty-card reveal" style="flex-direction:column;align-items:flex-start;padding:2.5rem 2rem;min-height:320px;">
-                    <div class="s-icon" style="background:#ede9fe;color:#e91e63;margin-bottom:1.25rem;">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <h4 style="margin-bottom:1rem;font-size:1.05rem;">Food Arrangements</h4>
-                    <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.7rem;">
-                        <li style="color:var(--gray);font-size:0.88rem;"><i class="fas fa-check-circle" style="color:#e91e63;margin-right:0.5rem;"></i>Breakfast, Lunch &amp; Dinner can be arranged on request</li>
-                        <li style="color:var(--gray);font-size:0.88rem;"><i class="fas fa-check-circle" style="color:#e91e63;margin-right:0.5rem;"></i>Guests may arrange their own catering</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- DYNAMIC GALLERY PREVIEW -->
-    <?php if (!empty($gallery_preview)): ?>
-    <section class="section" id="gallery-preview">
-        <div class="container">
-            <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem;">
+            <div class="grid-2" style="align-items: center; gap: 5rem;">
                 <div class="reveal">
-                    <div class="section-label"><i class="fas fa-images"></i> Visual Tour</div>
-                    <h2 class="section-heading">Glimpse of <span>Our Gallery</span></h2>
+                    <div class="section-label">Experience</div>
+                    <h2 class="section-heading">Glimpses of <span>Elegance</span></h2>
+                    <p style="color: var(--gray); margin-bottom: 2.5rem; line-height: 1.8;">Take a virtual tour through our property. From grand wedding setups to cozy residency rooms, see how we bring celebrations to life.</p>
+                    <a href="gallery.php" class="btn btn-primary">Open Gallery</a>
                 </div>
-                <a href="gallery.php" class="btn btn-outline reveal">View Full Gallery <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;">
-                <?php foreach ($gallery_preview as $img): ?>
-                    <a href="gallery.php" class="reveal" style="display:block;height:200px;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:var(--transition);">
-                        <img src="assets/images/gallery/<?php echo htmlspecialchars($img['image_path']); ?>" alt="Gallery" style="width:100%;height:100%;object-fit:cover;transition:0.5s;">
-                    </a>
-                <?php endforeach; ?>
+                <div class="reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="height: 200px; border-radius: var(--radius-sm); overflow: hidden; background: #ddd;">
+                            <img src="assets/images/rooms/room_1775375551_2977.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="height: 280px; border-radius: var(--radius-sm); overflow: hidden; background: #ddd;">
+                            <img src="assets/images/rooms/room_1775567533_1280.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; padding-top: 2rem;">
+                        <div style="height: 280px; border-radius: var(--radius-sm); overflow: hidden; background: #ddd;">
+                            <img src="assets/images/rooms/room_1775574377_4479.jpg" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="height: 200px; border-radius: var(--radius-sm); overflow: hidden; background: #ddd;">
+                            <img src="assets/images/rooms/room_1775576029_1117.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <?php endif; ?>
 
-    <!-- CTA -->
+    <!-- CALL TO ACTION -->
     <section class="section">
         <div class="container reveal">
-            <div class="cta-banner">
-                <div style="position:relative;z-index:1;">
-                    <h2>Ready to Book Your Dream Venue?</h2>
-                    <p>Join hundreds of happy customers who trust Sri Lakshmi Residency & Mahal for their special events.</p>
-                    <?php if (!isLoggedIn()): ?>
-                        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-                            <a href="register.php" class="btn btn-white btn-lg">Get Started Free</a>
-                            <a href="halls.php" class="btn btn-lg" style="background:rgba(255,255,255,0.15);color:white;border:2px solid rgba(255,255,255,0.3);">Browse Halls</a>
-                        </div>
-                    <?php else: ?>
-                        <a href="halls.php" class="btn btn-white btn-lg">Browse All Halls</a>
-                    <?php endif; ?>
+            <div style="background: var(--gradient-deep); padding: 5rem; border-radius: var(--radius-lg); text-align: center; color: white;">
+                <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem;">Start Planning Your Event Today</h2>
+                <p style="color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto 3rem;">Ready to host an unforgettable celebration? Our team is here to assist you at every step.</p>
+                <div style="display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="contact.php" class="btn btn-primary btn-lg">Contact Us</a>
+                    <a href="register.php" class="btn btn-primary btn-lg" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3); color:white;">Create Account</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <?php include 'includes/footer.php'; ?>
-
     <?php include 'includes/modals.php'; ?>
     <?php include 'includes/chatbot.php'; ?>
 
@@ -444,52 +505,6 @@ try {
         };
         window.addEventListener('scroll', reveal);
         reveal();
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', e => {
-                const target = document.querySelector(a.getAttribute('href'));
-                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
-            });
-        });
-
-        // Home banner slider controls
-        (function() {
-            const slides = document.querySelectorAll('.banner-slide');
-            if (!slides.length) return;
-
-            let currentSlide = 0;
-            const totalSlides = slides.length;
-            const nextBtn = document.getElementById('bannerNext');
-            const prevBtn = document.getElementById('bannerPrev');
-
-            const showSlide = (index) => {
-                slides.forEach((slide, i) => {
-                    slide.classList.toggle('active', i === index);
-                });
-            };
-
-            const goNext = () => {
-                currentSlide = (currentSlide + 1) % totalSlides;
-                showSlide(currentSlide);
-            };
-
-            const goPrev = () => {
-                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                showSlide(currentSlide);
-            };
-
-            if (nextBtn) nextBtn.addEventListener('click', goNext);
-            if (prevBtn) prevBtn.addEventListener('click', goPrev);
-
-            let autoSlide = setInterval(goNext, 5000);
-
-            const sliderSection = document.querySelector('.banner-slider');
-            if (sliderSection) {
-                sliderSection.addEventListener('mouseenter', () => clearInterval(autoSlide));
-                sliderSection.addEventListener('mouseleave', () => autoSlide = setInterval(goNext, 5000));
-            }
-        })();
     </script>
 </body>
 </html>

@@ -247,132 +247,50 @@ if ($hall_id > 0 || $room_id > 0) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
-            padding-top: 75px;
+            padding-top: 185px;
         }
 
         .detail-grid {
             display: grid;
-            grid-template-columns: 1fr 400px;
-            gap: 2.5rem;
+            grid-template-columns: 1fr 420px;
+            gap: 3rem;
             align-items: start;
         }
 
         @media(max-width:1100px) {
             .detail-grid {
-                grid-template-columns: 1fr 350px;
-                gap: 1.5rem;
-            }
-        }
-
-        @media(max-width:992px) {
-            .detail-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
 
         .amenity-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
             margin-top: 1rem;
-        }
-
-        @media(max-width:576px) {
-            .amenity-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .slot-choice {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 0.75rem;
-        }
-
-        .slot-btn {
-            width: 100%;
-            padding: 0.85rem;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: white;
-            cursor: pointer;
-            text-align: center;
-            transition: var(--transition);
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .slot-btn:hover,
-        .slot-btn.active {
-            border-color: var(--primary);
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .slot-btn.active {
-            border-color: var(--primary);
-            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
-        }
-
-        .price-breakdown {
-            background: #f8fafc;
-            border-radius: var(--radius);
-            padding: 1.25rem;
-            border: 1px solid var(--border);
-        }
-
-        .price-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            font-size: 0.875rem;
         }
 
         .price-row.total {
             font-weight: 700;
-            font-size: 1rem;
-            border-top: 2px solid var(--border);
-            padding-top: 0.75rem;
-            margin-top: 0.25rem;
-        }
-
-        .month-nav {
+            font-size: 1.1rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+            margin-top: 0.5rem;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 1rem;
-        }
-
-        .month-nav a {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            transition: var(--transition);
-            font-size: 0.85rem;
         }
 
         .category-filter-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
-        @media (max-width: 900px) {
-            .category-filter-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 500px) {
-            .category-filter-grid {
-                grid-template-columns: 1fr;
-            }
+        .category-filter-grid .btn {
+            border-radius: var(--radius-sm);
         }
     </style>
 </head>
@@ -404,18 +322,17 @@ if ($hall_id > 0 || $room_id > 0) {
                             <img src="assets/images/<?php echo $is_room ? 'rooms' : 'halls'; ?>/<?php echo htmlspecialchars($current_item['main_image']); ?>" alt="<?php echo htmlspecialchars($current_item['name']); ?>">
                         <?php else: ?>
                             <div style="width:100%;height:100%;background:var(--gradient-hero);display:flex;align-items:center;justify-content:center;">
-                                <i class="fas fa-building-columns" style="font-size:5rem;color:rgba(255,255,255,0.15);"></i>
+                                <i class="fas fa-building" style="font-size:5rem;color:rgba(255,255,255,0.15);"></i>
                             </div>
                         <?php endif; ?>
                         <div class="hall-detail-overlay">
                             <div>
-                                <span class="badge badge-success" style="margin-bottom:0.75rem;"><i class="fas fa-circle" style="font-size:0.45rem;"></i> Available for Booking</span>
-                                <h1 style="color:white;font-size:2.2rem;"><?php echo htmlspecialchars($current_item['name']); ?></h1>
-                                <div style="display:flex;gap:1.5rem;color:rgba(255,255,255,0.8);font-size:0.9rem;margin-top:0.5rem;flex-wrap:wrap;">
-                                    <span><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($current_item['location']); ?></span>
-                                    <span><i class="fas fa-users"></i> Capacity: <?php echo number_format($current_item['capacity']); ?> Guests</span>
+                                <h1 style="color:white;font-size:2.5rem;margin-bottom:0.5rem;"><?php echo htmlspecialchars($current_item['name']); ?></h1>
+                                <div style="display:flex;gap:2rem;color:rgba(255,255,255,0.9);font-size:0.95rem;flex-wrap:wrap;">
+                                    <span><i class="fas fa-map-marker-alt" style="color:var(--primary);"></i> <?php echo htmlspecialchars($current_item['location']); ?></span>
+                                    <span><i class="fas fa-users" style="color:var(--primary);"></i> Up to <?php echo number_format($current_item['capacity']); ?> Guests</span>
                                     <?php if ($current_item['price_per_day'] > 0): ?>
-                                        <span><i class="fas fa-tag"></i> Rs. <?php echo number_format($current_item['price_per_day']); ?>/day</span>
+                                        <span><i class="fas fa-tag" style="color:var(--primary);"></i> Rs. <?php echo number_format($current_item['price_per_day']); ?>/day</span>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -423,15 +340,15 @@ if ($hall_id > 0 || $room_id > 0) {
                     </div>
 
                     <!-- Description -->
-                    <div class="card" style="margin-top:1.5rem;padding:1.75rem;border-radius:var(--radius-lg);">
-                        <h3 style="margin-bottom:1rem;">About This Hall</h3>
-                        <p style="color:var(--gray);line-height:1.8;"><?php echo nl2br(htmlspecialchars($current_item['description'] ?? ($is_room ? 'Premium room available for comfortable stay during your events.' : 'Premium hall available for all types of events including weddings, receptions, birthday parties, corporate events, and more.'))); ?></p>
+                    <div class="card" style="margin-top:2rem;padding:2.5rem;border-radius:var(--radius-md);">
+                        <h3 style="margin-bottom:1.5rem;font-family:'Playfair Display', serif;">Property Overview</h3>
+                        <p style="color:var(--gray);line-height:1.8;font-size:1.05rem;"><?php echo nl2br(htmlspecialchars($current_item['description'] ?? ($is_room ? 'Premium room available for comfortable stay during your events.' : 'Premium hall available for all types of events including weddings, receptions, birthday parties, corporate events, and more.'))); ?></p>
                     </div>
 
                     <!-- Amenities / Specialties -->
                     <?php if (!empty($facilities)): ?>
-                        <div class="card" style="margin-top:1.25rem;padding:1.75rem;border-radius:var(--radius-lg);">
-                            <h3 style="margin-bottom:1rem;"><i class="fas fa-star" style="color:var(--accent);"></i> Hall Specialties & Amenities</h3>
+                        <div class="card" style="margin-top:1.5rem;padding:2.5rem;border-radius:var(--radius-md);">
+                            <h3 style="margin-bottom:1.5rem;font-family:'Playfair Display', serif;">Facilities & Services</h3>
                             <div class="amenity-grid">
                                 <?php
                                 $amenity_icons = [
@@ -443,7 +360,7 @@ if ($hall_id > 0 || $room_id > 0) {
                                     'Generator' => 'fas fa-bolt',
                                     'WiFi' => 'fas fa-wifi',
                                     'Music' => 'fas fa-music',
-                                    'Decoration' => 'fas fa-flower',
+                                    'Decoration' => 'fas fa-wand-magic-sparkles',
                                     'CCTV' => 'fas fa-camera',
                                     'Kitchen' => 'fas fa-kitchen-set',
                                     'Restrooms' => 'fas fa-restroom',
@@ -469,28 +386,28 @@ if ($hall_id > 0 || $room_id > 0) {
                     <?php endif; ?>
 
 
-                    <!-- Occupancy Schedule - PHP Server-side rendered -->
+                    <!-- Occupancy Schedule -->
                     <?php
                     $prev_m = date('Y-m', strtotime($selected_month . '-01 -1 month'));
                     $next_m = date('Y-m', strtotime($selected_month . '-01 +1 month'));
                     $month_label = date('F Y', strtotime($selected_month . '-01'));
                     ?>
-                    <div class="card" id="booking-schedule" style="margin-top:1.25rem;padding:1.75rem;border-radius:var(--radius-lg);scroll-margin-top:90px;">
-                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
-                            <h3><i class="fas fa-calendar-alt" style="color:var(--primary);"></i> Booking Schedule</h3>
-                            <div style="display:flex;align-items:center;gap:0.75rem;">
-                                <a href="?id=<?php echo $hall_id; ?>&month=<?php echo $prev_m; ?>#booking-schedule" style="width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;background:white;transition:var(--transition);" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='white'">
-                                    <i class="fas fa-chevron-left" style="font-size:0.8rem;color:var(--primary);"></i>
+                    <div class="card" id="booking-schedule" style="margin-top:1.5rem;padding:2.5rem;border-radius:var(--radius-md);scroll-margin-top:100px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:2rem;">
+                            <h3 style="font-family:'Playfair Display', serif;"><i class="fas fa-calendar-alt" style="color:var(--primary);margin-right:0.5rem;"></i> Availability Calendar</h3>
+                            <div style="display:flex;align-items:center;gap:1rem;">
+                                <a href="?id=<?php echo $hall_id; ?>&month=<?php echo $prev_m; ?>#booking-schedule" class="btn-circle" style="width:40px;height:40px;border-radius:var(--radius-sm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--primary);transition:var(--transition);">
+                                    <i class="fas fa-chevron-left"></i>
                                 </a>
-                                <strong style="font-size:0.95rem;min-width:110px;text-align:center;"><?php echo $month_label; ?></strong>
-                                <a href="?id=<?php echo $hall_id; ?>&month=<?php echo $next_m; ?>#booking-schedule" style="width:34px;height:34px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;background:white;transition:var(--transition);" onmouseover="this.style.background='var(--primary-light)'" onmouseout="this.style.background='white'">
-                                    <i class="fas fa-chevron-right" style="font-size:0.8rem;color:var(--primary);"></i>
+                                <strong style="font-size:1.1rem;min-width:140px;text-align:center;"><?php echo $month_label; ?></strong>
+                                <a href="?id=<?php echo $hall_id; ?>&month=<?php echo $next_m; ?>#booking-schedule" class="btn-circle" style="width:40px;height:40px;border-radius:var(--radius-sm);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--primary);transition:var(--transition);">
+                                    <i class="fas fa-chevron-right"></i>
                                 </a>
                             </div>
                         </div>
 
                     <?php if (!empty($booked_dates)): ?>
-                        <div style="overflow-x:auto;">
+                        <div class="table-responsive">
                             <table class="occupancy-table">
                                 <thead>
                                     <tr><th>Date</th><th>Event</th><th>Slot</th><th>Booked By</th><th>Status</th></tr>
@@ -513,54 +430,52 @@ if ($hall_id > 0 || $room_id > 0) {
                             </table>
                         </div>
                     <?php else: ?>
-                        <div style="text-align:center;padding:3rem;">
-                            <i class="fas fa-calendar-check" style="font-size:2.5rem;margin-bottom:1rem;color:#10b981;display:block;"></i>
-                            <p style="font-size:1rem;font-weight:600;color:#10b981;">Fully Available</p>
-                            <p style="font-size:0.875rem;color:#94a3b8;">No bookings this month. All slots are free!</p>
+                        <div style="text-align:center;padding:4rem 2rem;">
+                            <div style="width:80px;height:80px;background:var(--primary-light);color:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2rem;">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h4 style="font-size:1.25rem;color:var(--primary);margin-bottom:0.5rem;">Fully Available</h4>
+                            <p style="color:var(--gray);">Great news! All slots are currently free for this month.</p>
                         </div>
                     <?php endif; ?>
-                </div>
-
-
-
+                    </div>
                 </div>
 
                 <!-- RIGHT: BOOKING FORM -->
                 <div>
-                    <div class="booking-form-card" style="position:sticky;top:90px;">
-                        <div class="booking-form-header">
-                            <h3 style="color:white;margin-bottom:0.25rem;"><i class="fas fa-calendar-plus"></i> Book This <?php echo $is_room ? 'Room' : 'Hall'; ?></h3>
-                            <p style="color:rgba(255,255,255,0.8);font-size:0.875rem;margin:0;">Fill the form below to reserve</p>
+                    <div class="booking-form-card" style="position:sticky;top:110px;">
+                        <div class="booking-form-header" style="padding:2rem; background: var(--primary-deep);">
+                            <h3 style="color:white;margin-bottom:0.5rem;font-family:'Playfair Display', serif;">Reservation</h3>
+                            <p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin:0;">Secure your date instantly</p>
                         </div>
 
                         <?php if (!isLoggedIn()): ?>
-                            <div class="booking-form-body" style="text-align:center;">
-                                <div style="width:70px;height:70px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem;">
-                                    <i class="fas fa-user-lock" style="font-size:1.75rem;color:var(--primary);"></i>
+                            <div class="booking-form-body" style="text-align:center;padding:3rem 2rem;">
+                                <div style="width:80px;height:80px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
+                                    <i class="fas fa-lock" style="font-size:2rem;color:var(--primary);"></i>
                                 </div>
-                                <h4>Login Required</h4>
-                                <p style="color:var(--gray);font-size:0.875rem;margin:0.75rem 0 1.5rem;">Please login to book this <?php echo $is_room ? 'room' : 'hall'; ?>.</p>
-                                <a href="login.php" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Login to Book</a>
-                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--gray);">New user? <a href="register.php" style="color:var(--primary);">Register free</a></p>
+                                <h4 style="margin-bottom:1rem;">Authentication Required</h4>
+                                <p style="color:var(--gray);font-size:0.95rem;margin-bottom:2rem;line-height:1.6;">Please sign in to your account to process this booking.</p>
+                                <a href="login.php" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">Login & Continue</a>
                             </div>
                         <?php else: ?>
-                            <div class="booking-form-body">
+                            <div class="booking-form-body" style="padding:2rem;">
                                 <form id="bookingForm" action="actions/book_hall.php" method="POST">
                                     <input type="hidden" name="hall_id" value="<?php echo $hall_id; ?>">
                                     <input type="hidden" name="room_id" value="<?php echo $room_id; ?>">
 
                                     <?php if (!$is_room): ?>
                                     <div class="form-group">
-                                        <label><i class="fas fa-tag"></i> Event Name</label>
+                                        <label>Event Category</label>
                                         <select name="event_name" class="form-control" required>
-                                            <option value="" disabled selected>- Select event type -</option>
+                                            <option value="" disabled selected>Select event type</option>
                                             <option value="Wedding">Wedding (Thirumanam)</option>
                                             <option value="Reception">Reception</option>
-                                            <option value="Betrothal">Betrothal (Nichayathartham)</option>
+                                            <option value="Betrothal">Betrothal</option>
                                             <option value="Birthday Party">Birthday Party</option>
-                                            <option value="Puberty Ceremony">Puberty Ceremony (Manjal Neerattu)</option>
-                                            <option value="Baby Shower">Baby Shower (Valaikappu)</option>
-                                            <option value="Ear Piercing">Ear Piercing (Kadhukuthu)</option>
+                                            <option value="Puberty Ceremony">Puberty Ceremony</option>
+                                            <option value="Baby Shower">Baby Shower</option>
+                                            <option value="Ear Piercing">Ear Piercing</option>
                                             <option value="Meeting / Seminar">Meeting / Seminar</option>
                                             <option value="Other">Other Event</option>
                                         </select>
@@ -570,70 +485,47 @@ if ($hall_id > 0 || $room_id > 0) {
                                     <?php endif; ?>
 
                                     <div class="form-group">
-                                        <label><i class="fas fa-user"></i> Your Name</label>
+                                        <label>Full Name</label>
                                         <input type="text" name="booker_name" data-validate="name" class="form-control" value="<?php echo htmlspecialchars($user_name); ?>" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label><i class="fas fa-phone"></i> Contact Number</label>
+                                        <label>Contact Phone</label>
                                         <input type="tel" name="booker_phone" data-validate="phone" class="form-control" value="<?php echo htmlspecialchars($user_phone); ?>" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label><i class="fas fa-envelope"></i> Email</label>
-                                        <input type="email" name="booker_email" data-validate="email" class="form-control" value="<?php echo htmlspecialchars($user_email); ?>" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label><i class="fas fa-calendar-alt"></i> Event Date</label>
-                                        <div style="display:flex; flex-direction:column; gap:0.5rem;">
-                                            <input type="date" name="event_date" id="event_date" class="form-control" required min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" onchange="checkLiveAvailability(this.value)">
-                                            <div id="availabilityStatus" style="display:none; padding:0.6rem 0.9rem; border-radius:10px; font-size:0.85rem; font-weight:700; align-items:center; gap:0.5rem;">
-                                                <i class="fas fa-info-circle"></i> <span>Checking...</span>
-                                            </div>
+                                        <label>Event Date</label>
+                                        <input type="date" name="event_date" id="event_date" class="form-control" required min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" onchange="checkLiveAvailability(this.value)">
+                                        <div id="availabilityStatus" style="display:none; padding:0.75rem; border-radius:var(--radius-sm); font-size:0.85rem; font-weight:600; margin-top:0.5rem;">
+                                            <i class="fas fa-info-circle"></i> <span>Checking...</span>
                                         </div>
                                     </div>
 
-                                <!-- Slot Selection - Handled based on Hall vs Room -->
                                 <div class="form-group">
-                                    <label><i class="fas fa-clock"></i> Booking Type</label>
-                                    <?php if (!$is_room): // HALLS: ALWAYS FULL DAY ?>
-                                        <div style="background:var(--primary-light); padding:0.8rem 1.1rem; border-radius:var(--radius); border:1px solid var(--rose-soft); color:var(--primary); font-weight:700; display:flex; align-items:center; gap:0.5rem;">
-                                            <i class="fas fa-calendar-check"></i> Full Day Booking Only
-                                        </div>
-                                        <input type="hidden" name="is_full_day" value="1">
-                                        <input type="hidden" name="slot_id" value="">
-                                        <input type="hidden" name="booking_type_display" value="fullday">
-                                    <?php else: // ROOMS: NOW ALSO ONLY PER DAY ?>
-                                        <div style="background:var(--primary-light); padding:0.8rem 1.1rem; border-radius:var(--radius); border:1px solid var(--rose-soft); color:var(--primary); font-weight:700; display:flex; align-items:center; gap:0.5rem;">
-                                            <i class="fas fa-bed"></i> Per Day Booking
-                                        </div>
-                                        <input type="hidden" name="is_full_day" value="1">
-                                        <input type="hidden" name="slot_id" value="">
-                                        <input type="hidden" name="booking_type_display" value="fullday">
-                                    <?php endif; ?>
+                                    <label>Booking Duration</label>
+                                    <div style="background:var(--primary-light); padding:1rem; border-radius:var(--radius-sm); border:1px solid var(--tan-soft); color:var(--primary); font-weight:700; display:flex; align-items:center; gap:0.75rem;">
+                                        <i class="fas fa-calendar-check"></i> <?php echo $is_room ? 'Daily Stay Rate' : 'Full Day Venue Hire'; ?>
+                                    </div>
+                                    <input type="hidden" name="is_full_day" value="1">
+                                    <input type="hidden" name="slot_id" value="">
                                 </div>
 
-                                    <!-- Price Breakdown -->
+                                <div class="price-row total">
+                                    <span style="font-family:'Playfair Display', serif; font-weight:700; color:var(--dark);">Total Amount</span>
+                                    <span id="hallRate" style="font-weight:700; color:var(--primary); font-size:1.25rem;">Rs. <?php echo number_format($current_item['price_per_day']); ?></span>
+                                </div>
 
-                                    <div class="price-row total" style="border-top:1px solid var(--border); padding-top:1rem; margin-top:0.5rem; display:flex; justify-content:space-between; align-items:center;">
-                                        <span style="font-weight:700; color:var(--dark); font-size:1.1rem;">Total Hall Rate</span>
-                                        <span id="hallRate" style="font-weight:800; color:var(--dark); font-size:1.1rem; font-family:'Poppins',sans-serif;">Rs. <?php echo number_format($current_item['price_per_day']); ?></span>
-                                    </div>
+                                <button type="submit" class="btn btn-primary btn-lg" style="width:100%; justify-content:center; margin-top:2rem; border-radius: var(--radius-sm);">
+                                    <i class="fas fa-check-circle"></i> Confirm Reservation
+                                </button>
 
-
-
-                            <button type="submit" class="btn btn-primary btn-lg" style="width:100%; display:flex; align-items:center; justify-content:center; gap:0.6rem; padding:0.9rem; margin-top:1.25rem; border-radius:var(--radius-full); box-shadow:0 8px 20px rgba(233, 30, 99, 0.3);">
-                                <i class="fas fa-check-circle" style="font-size:1.05rem; margin-top:-1px;"></i>
-                                <span style="font-weight:700; font-size:1rem;">Confirm Booking</span>
-                            </button>
-
-                            <p style="text-align:center;font-size:0.75rem;color:var(--gray-light);margin-top:0.75rem;">
-                                <i class="fas fa-shield-alt"></i> Your booking is secure and protected
-                            </p>
-                            </form>
-                        </div>
-                    <?php endif; ?>
+                                <p style="text-align:center;font-size:0.8rem;color:var(--gray);margin-top:1.25rem;line-height:1.5;">
+                                    By clicking confirm, you agree to our terms and conditions for venue booking.
+                                </p>
+                                </form>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -754,12 +646,12 @@ if ($hall_id > 0 || $room_id > 0) {
                                     <div class="hall-card-body">
                                         <h3 class="hall-card-title"><?php echo htmlspecialchars($room['name']); ?></h3>
                                         <div class="hall-card-meta">
-                                            <span><i class="fas fa-layer-group"></i> Inventory: <?php echo $room['total_rooms']; ?> Rooms</span>
-                                            <span><i class="fas fa-tag"></i> Category: <?php echo htmlspecialchars($room['category_name']); ?></span>
+                                            <span><i class="fas fa-bed"></i> <?php echo $room['total_rooms']; ?> Units</span>
+                                            <span><i class="fas fa-tag"></i> <?php echo htmlspecialchars($room['category_name']); ?></span>
                                         </div>
-                                        <p><?php echo htmlspecialchars($room['description'] ?: "Book our comfortable " . $room['name'] . " for your event stay."); ?></p>
-                                        <a href="halls.php?room_id=<?php echo $room['representative_room_id']; ?>" class="btn btn-primary" style="width:100%;justify-content:center;">
-                                            Check Availability & Book <i class="fas fa-arrow-right"></i>
+                                        <p style="font-size:0.9rem; color:var(--gray); margin-bottom:1.5rem; line-height:1.6;"><?php echo htmlspecialchars($room['description'] ?: "Book our comfortable " . $room['name'] . " for your event stay."); ?></p>
+                                        <a href="halls.php?room_id=<?php echo $room['representative_room_id']; ?>" class="btn btn-primary" style="width:100%;justify-content:center; border-radius: var(--radius-sm);">
+                                            Check Availability <i class="fas fa-arrow-right"></i>
                                         </a>
                                     </div>
                                 </div>
@@ -775,76 +667,62 @@ if ($hall_id > 0 || $room_id > 0) {
 
             <?php else: ?>
                 <!-- MAIN GRID VIEW (Halls + One Rooms Card) -->
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:0.5rem;" class="reveal">
-                    <h2 style="font-size:2rem; margin:0;">Available Venues & Stays</h2>
-                    <p style="color:var(--gray);font-size:0.875rem;">Showing all available halls and room collections</p>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;" class="reveal">
+                    <div>
+                        <h2 style="font-size:2.2rem; margin-bottom:0.5rem; font-family:'Playfair Display', serif;">Available Venues & Stays</h2>
+                        <p style="color:var(--gray);font-size:0.95rem;">Select a venue below to view details and check availability.</p>
+                    </div>
                 </div>
 
                 <div class="halls-grid stagger-children">
                     <?php foreach ($all_halls as $hall): ?>
-                        <div class="hall-card glass-card reveal">
+                        <div class="hall-card reveal">
                             <div class="hall-card-img">
                                 <?php if ($hall['main_image']): ?>
                                     <img src="assets/images/halls/<?php echo htmlspecialchars($hall['main_image']); ?>" alt="<?php echo htmlspecialchars($hall['name']); ?>">
                                 <?php else: ?>
-                                    <div style="width:100%;height:100%;background:var(--gradient-hero);display:flex;align-items:center;justify-content:center;">
-                                        <i class="fas fa-building-columns" style="font-size:3rem;color:rgba(255,255,255,0.25);"></i>
+                                    <div style="width:100%;height:100%;background:var(--primary-deep);display:flex;align-items:center;justify-content:center;">
+                                        <i class="fas fa-building" style="font-size:3rem;color:rgba(255,255,255,0.1);"></i>
                                     </div>
                                 <?php endif; ?>
                                 <div class="hall-price">Rs. <?php echo number_format($hall['price_per_day']); ?>/day</div>
-                                <div class="hall-badge"><span class="badge badge-success"><i class="fas fa-circle" style="font-size:0.45rem;"></i> Available</span></div>
                             </div>
                             <div class="hall-card-body">
                                 <h3 class="hall-card-title"><?php echo htmlspecialchars($hall['name']); ?></h3>
                                 <div class="hall-card-meta">
                                     <span><i class="fas fa-map-marker-alt"></i> <?php echo htmlspecialchars($hall['location']); ?></span>
-                                    <span><i class="fas fa-users"></i> <?php echo number_format($hall['capacity']); ?></span>
+                                    <span><i class="fas fa-users"></i> <?php echo number_format($hall['capacity']); ?> Guests</span>
                                 </div>
                                 <?php if ($hall['description']): ?>
-                                    <p style="font-size:0.8rem;color:var(--gray);margin-bottom:1.25rem;line-height:1.5;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;"><?php echo htmlspecialchars($hall['description']); ?></p>
+                                    <p style="font-size:0.9rem;color:var(--gray);margin-bottom:1.5rem;line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;"><?php echo htmlspecialchars($hall['description']); ?></p>
                                 <?php endif; ?>
-                                <a href="halls.php?id=<?php echo $hall['id']; ?>" class="btn btn-primary" style="width:100%;justify-content:center;">
-                                    View & Book <i class="fas fa-arrow-right"></i>
+                                <a href="halls.php?id=<?php echo $hall['id']; ?>" class="btn btn-primary" style="width:100%;justify-content:center; border-radius: var(--radius-sm);">
+                                    View Venue <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
                     <?php endforeach; ?>
 
                     <!-- SPECIAL ROOMS CARD -->
-                    <?php if (!empty($all_rooms)): 
-                        // Use first available category image or room as thumbnail
-                        $room_thumb = $all_rooms[0]['category_image'] ?? $all_rooms[0]['room_image'] ?? '';
-                        $thumb_path = !empty($all_rooms[0]['category_image']) ? 'categories' : 'rooms';
-                        
-                        // OVERRIDE: If a specific promotional banner is set in site settings, use it!
-                        if (!empty($rooms_explore_image)) {
-                            $room_thumb = $rooms_explore_image;
-                            $thumb_path = 'assets/images'; // Base assets folder
-                        }
-                        ?>
-                        <div class="hall-card glass-card reveal rooms-entry-card">
+                    <?php if (!empty($all_rooms)): ?>
+                        <div class="hall-card reveal highlight-card" style="border: 2px solid var(--primary-light);">
                             <div class="hall-card-img">
-                                <?php if ($room_thumb): ?>
-                                    <img src="<?php echo ($thumb_path === 'assets/images') ? 'assets/images/' . $room_thumb : 'assets/images/' . $thumb_path . '/' . htmlspecialchars($room_thumb); ?>" alt="Luxury Rooms">
-                                <?php else: ?>
-                                    <div style="width:100%;height:100%;background:var(--gradient-hero);display:flex;align-items:center;justify-content:center;">
-                                        <i class="fas fa-bed" style="font-size:3rem;color:rgba(255,255,255,0.25);"></i>
-                                    </div>
-                                <?php endif; ?>
+                                <?php 
+                                $room_thumb = $all_rooms[0]['category_image'] ?? $all_rooms[0]['room_image'] ?? '';
+                                $thumb_path = !empty($all_rooms[0]['category_image']) ? 'categories' : 'rooms';
+                                ?>
+                                <img src="assets/images/<?php echo $thumb_path; ?>/<?php echo htmlspecialchars($room_thumb); ?>" alt="Luxury Rooms">
                                 <div class="hall-price">Premium Stay</div>
-                                <div class="hall-badge">
-                                    <span class="badge badge-primary"><i class="fas fa-star"></i> LUXURY</span>
-                                </div>
                             </div>
                             <div class="hall-card-body">
-                                <h3 class="hall-card-title"><?php echo htmlspecialchars($rooms_explore_title ?? 'Luxury Guest Rooms'); ?></h3>
+                                <h3 class="hall-card-title">Luxury Guest Rooms</h3>
                                 <div class="hall-card-meta">
-                                    <span><i class="fas fa-layer-group"></i> Multiple Categories</span>
-                                    <span><i class="fas fa-check-circle"></i> AC Available</span>
+                                    <span><i class="fas fa-bed"></i> Various Categories</span>
+                                    <span><i class="fas fa-snowflake"></i> Fully AC</span>
                                 </div>
-                                <p>We offer a variety of rooms including Bridal, VIP, and Standard guest rooms to accommodate your requirements.</p>
-                                <a href="halls.php?view=room_types" class="btn btn-primary">
-                                    Select Room Category <i class="fas fa-chevron-right"></i>
+                                <p style="font-size:0.9rem; color:var(--gray); margin-bottom:1.5rem; line-height:1.6;">Comfortable accommodation for your guests. From Bridal Suites to Deluxe rooms.</p>
+                                <a href="halls.php?view=room_types" class="btn btn-outline" style="width:100%; justify-content:center; border-radius: var(--radius-sm);">
+                                    Explore Rooms <i class="fas fa-chevron-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -853,12 +731,12 @@ if ($hall_id > 0 || $room_id > 0) {
 
                 <?php if (empty($all_halls) && empty($all_rooms)): ?>
                     <div style="text-align:center;padding:5rem 2rem;">
-                        <div style="width:80px;height:80px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;">
-                            <i class="fas fa-building" style="font-size:2rem;color:var(--primary);"></i>
+                        <div style="width:100px;height:100px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 2rem;">
+                            <i class="fas fa-search" style="font-size:2.5rem;color:var(--primary);"></i>
                         </div>
-                        <h3 style="margin-bottom:0.5rem;">No Venues Found</h3>
-                        <p style="color:var(--gray);">Try adjusting your search filters.</p>
-                        <a href="halls.php" class="btn btn-primary" style="margin-top:1.5rem;">Clear Filters</a>
+                        <h3 style="margin-bottom:0.5rem; font-family:'Playfair Display', serif;">No Venues Found</h3>
+                        <p style="color:var(--gray);">We couldn't find any halls matching your current search.</p>
+                        <a href="halls.php" class="btn btn-primary" style="margin-top:2rem; border-radius: var(--radius-sm);">Clear All Filters</a>
                     </div>
                 <?php endif; ?>
             <?php endif; ?>
